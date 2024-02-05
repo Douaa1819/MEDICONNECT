@@ -1,2 +1,4 @@
-# MEDICONNECT
-La clinique MédiConnect propose une plateforme interactive permettant aux patients de consulter les différentes spécialités médicales, d'explorer les profils des médecins, et de prendre des rendez-vous avec les médecins de leur choix pour la journée en cours
+## Lien de Planification Jira :
+- **[Jira](https://douaa123.atlassian.net/jira/software/projects/MED/boards/2)**
+- ## Lien de Présenattion
+- **[Canva](https://www.canva.com/p/templates/EAFl-aIpMjM-white-and-light-blue-professional-modern-health-care-presentation/)**
