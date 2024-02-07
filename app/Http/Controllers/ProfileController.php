@@ -14,12 +14,23 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = Auth::user(); // Récupère l'utilisateur authentifié
+
+        // Redirige vers une vue spécifique basée sur le rôle de l'utilisateur
+        if ($user->role == 'doctor') {
+            return view('doctor.profile', compact('user'));
+        } elseif ($user->role == 'patient') {
+            return view('patient.profile', compact('user'));
+        }
+
+        // Redirection par défaut si le rôle n'est pas reconnu
+        return redirect('/home');
     }
+
+    // Les méthodes update et destroy peuvent être ajustées de manière similaire si nécessaire
+
 
     /**
      * Update the user's profile information.

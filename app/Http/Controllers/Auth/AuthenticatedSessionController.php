@@ -20,16 +20,36 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    protected function authenticated(Request $request, $user)
+{
+    if ($user->role == 'doctor') {
+        return redirect('/doctor/profile');
+    } elseif ($user->role == 'patient') {
+        return redirect('/patient/profile');
+    }
+
+    return redirect('/home');
+}
+
     /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
+    
         $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+    
+        // Redirection basée sur le rôle de l'utilisateur
+        $user = Auth::user(); // Récupérez l'utilisateur authentifié
+        if ($user->role == 'doctor') {
+            return redirect('/doctor/profile');
+        } elseif ($user->role == 'patient') {
+            return redirect('/patient/profile');
+        }
+    
+        // Redirection par défaut
+        return redirect(RouteServiceProvider::HOME);
     }
 
     /**
