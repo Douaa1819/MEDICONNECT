@@ -12,6 +12,7 @@
     <title>MediConnect</title>
 </head>
 <body>
+    <x-navbar></x-navbar>
 <section class="py-10 bg-gradient-to-r from-cyan-200 via-teal-400 to-green-300 sm:py-16 lg:py-24">
     <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
         <div class="max-w-2xl mx-auto text-center">
@@ -43,7 +44,31 @@
                     <p class="mt-6 text-base text-gray-700">Traitement et suivi des troubles neurologiques avec les technologies les plus récentes.</p>
                 </div>
             </a>
+            <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
+                <div class="py-8 px-9">
+                    <p class="text-lg font-bold text-gray-900">Pédiatrie</p>
+                    <p class="mt-1 text-gray-800">Soins spécialisés pour enfants</p>
+                    <p class="mt-6 text-base text-gray-700">Notre équipe pédiatrique offre des soins complets pour le bien-être de vos enfants.</p>
+                </div>
+            </a>
+            <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
+                <div class="py-8 px-9">
+                    <p class="text-lg font-bold text-gray-900">Pédiatrie</p>
+                    <p class="mt-1 text-gray-800">Soins spécialisés pour enfants</p>
+                    <p class="mt-6 text-base text-gray-700">Notre équipe pédiatrique offre des soins complets pour le bien-être de vos enfants.</p>
+                </div>
+            </a>
+            <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
+                <div class="py-8 px-9">
+                    <p class="text-lg font-bold text-gray-900">Pédiatrie</p>
+                    <p class="mt-1 text-gray-800">Soins spécialisés pour enfants</p>
+                    <p class="mt-6 text-base text-gray-700">Notre équipe pédiatrique offre des soins complets pour le bien-être de vos enfants.</p>
+                </div>
+            </a>
             <!--  spécialités médicales ici -->
         </div>
     </div>
 </section>
+
+{{-- Foooooooter --}}
+<x-footer></x-footer>
