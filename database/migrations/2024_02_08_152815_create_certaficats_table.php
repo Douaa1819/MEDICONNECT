@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create('patients', function (Blueprint $table) {
+        Schema::create('certaficats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->text('description');
+            $table->integer('nbmrJour');
             $table->timestamps();
         });
-
-   
-     
     }
 
     /**
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patients');
+        Schema::dropIfExists('certaficats');
     }
 };

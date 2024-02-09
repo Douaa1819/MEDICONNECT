@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-
+use App\Models\Specialite; 
 class ProfileController extends Controller
 {
     /**
@@ -68,4 +68,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+//aficher les specialisiter dans patient
+public function showPatientProfile(): View
+{
+    $specialites = Specialite::all(); // Assurez-vous que cette ligne est correcte
+    return view('patient.profile', compact('specialites')); // Passe les spécialités à la vue
 }
+}
+

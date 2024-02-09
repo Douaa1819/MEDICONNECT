@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends User
 {
+    protected $fillable = ['user_id', 'specialite_id'];
     public static function allDoctors()
     {
         return self::where('role', 'doctor')->get();

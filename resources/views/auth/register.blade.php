@@ -9,14 +9,29 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
-                <!-- Role -->
-                <div>
-                    <x-input-label for="role" :value="__('Role')" />
-                    <select name="role">
-                        <option value="patient">Patient</option>
-                        <option value="doctor">Doctor</option>
-                    </select>
-                </div>
+                {{-- Champ pour sélectionner le rôle --}}
+<select name="role" id="role" onchange="toggleSpecialty();">
+    <option value="patient">Patient</option>
+    <option value="doctor">Doctor</option>
+</select>
+
+{{-- Champ pour sélectionner la spécialité, caché par défaut --}}
+<div id="specialtySelect" style="display: none;">
+    <select name="specialite_id">
+        @foreach($specialites as $specialite)
+            <option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>
+        @endforeach
+    </select>
+</div>
+
+<script>
+function toggleSpecialty() {
+    var role = document.getElementById('role').value;
+    var display = (role === 'doctor') ? 'block' : 'none';
+    document.getElementById('specialtySelect').style.display = display;
+}
+</script>
+                
 
         <!-- Email Address -->
         <div class="mt-4">
@@ -56,6 +71,7 @@
             <x-primary-button class="ms-4">
                 {{ __('Register') }}
             </x-primary-button>
-        </div>
+        </div
+        >
     </form>
 </x-guest-layout>

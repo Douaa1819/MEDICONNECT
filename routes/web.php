@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\SpecialiteController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,19 +27,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register'); 
+    Route::get('/patient/profile', [ProfileController::class, 'showPatientProfile'])->middleware('auth')->name('patient.profile');
     Route::get('/patient/profile', function () {
         if (auth()->user()->role === 'patient') {
             return view('patient.profile'); 
         }
         return redirect('/');
     })->name('patient.profile');
-
     Route::get('/doctor/profile', function () {
         if (auth()->user()->role === 'doctor') {
             return view('doctor.profile'); 
         }
         return redirect('/');
     })->name('doctor.profile');
+
+
 });
 
 require __DIR__.'/auth.php';

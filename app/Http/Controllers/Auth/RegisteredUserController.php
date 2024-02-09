@@ -8,6 +8,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Models\Doctor;
+use App\Models\Specialite; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -20,7 +22,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $specialites = Specialite::all(); // Récupère toutes les spécialités
+        return view('auth.register', compact('specialites')); // Passe les spécialités à la vue
     }
 
     /**
@@ -32,9 +35,10 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'lowercase'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'in:doctor,patient'],
+            'specialite_id' => $request->role === 'doctor' ? 'required|exists:specialites,id' : 'nullable',
         ]);
        
         $user = User::create([
@@ -44,10 +48,19 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        if ($request->role === 'doctor' && $request->has('specialite_id')) {
+            Doctor::create([
+                'user_id' => $user->id,
+                'specialite_id' => $request->specialite_id,
+            ]);
+        }
+
         event(new Registered($user));
 
         Auth::login($user);
 
         return $request->role == 'doctor' ? redirect('/doctor/profile') : redirect('/patient/profile');
     }
+  
+    
 }

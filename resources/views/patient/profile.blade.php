@@ -21,13 +21,16 @@
         </div>
 
         <div class="grid grid-cols-1 gap-6 mt-8 sm:mt-12 xl:mt-20 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-14">
-            <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
-                <div class="py-8 px-9">
-                    <p class="text-lg font-bold  text-gray-900">Cardiologie</p>
-                    <p class="mt-1 text-gray-800">Prenez soin de votre cœur</p>
-                    <p class="mt-6 text-base text-gray-700">Découvrez nos services dédiés à la santé cardiovasculaire, incluant diagnostics et traitements avancés.</p>
-                </div>
-            </a>
+            @foreach ($specialites as $specialite)
+                <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
+                    <div class="py-8 px-9">
+                        <p class="text-lg font-bold text-gray-900">{{ $specialite->nom }}</p>
+                        <p class="mt-1 text-gray-800">Description courte de la spécialité</p>
+                        <p class="mt-6 text-base text-gray-700">Informations supplémentaires sur la spécialité ou comment prendre rendez-vous.</p>
+                    </div>
+                </a>
+            @endforeach
+        </div>
 
             <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
                 <div class="py-8 px-9">
@@ -37,34 +40,8 @@
                 </div>
             </a>
 
-            <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
-                <div class="py-8 px-9">
-                    <p class="text-lg font-bold text-gray-900">Neurologie</p>
-                    <p class="mt-1 text-gray-800">Expertise en neuroscience</p>
-                    <p class="mt-6 text-base text-gray-700">Traitement et suivi des troubles neurologiques avec les technologies les plus récentes.</p>
-                </div>
-            </a>
-            <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
-                <div class="py-8 px-9">
-                    <p class="text-lg font-bold text-gray-900">Pédiatrie</p>
-                    <p class="mt-1 text-gray-800">Soins spécialisés pour enfants</p>
-                    <p class="mt-6 text-base text-gray-700">Notre équipe pédiatrique offre des soins complets pour le bien-être de vos enfants.</p>
-                </div>
-            </a>
-            <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
-                <div class="py-8 px-9">
-                    <p class="text-lg font-bold text-gray-900">Pédiatrie</p>
-                    <p class="mt-1 text-gray-800">Soins spécialisés pour enfants</p>
-                    <p class="mt-6 text-base text-gray-700">Notre équipe pédiatrique offre des soins complets pour le bien-être de vos enfants.</p>
-                </div>
-            </a>
-            <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
-                <div class="py-8 px-9">
-                    <p class="text-lg font-bold text-gray-900">Pédiatrie</p>
-                    <p class="mt-1 text-gray-800">Soins spécialisés pour enfants</p>
-                    <p class="mt-6 text-base text-gray-700">Notre équipe pédiatrique offre des soins complets pour le bien-être de vos enfants.</p>
-                </div>
-            </a>
+         
+            
             <!--  spécialités médicales ici -->
         </div>
     </div>
