@@ -19,30 +19,16 @@
             <h2 class="text-3xl font-bold leading-tight text-gray-800 sm:text-4xl lg:text-5xl lg:leading-tight">Nos Spécialités Médicales</h2>
             <p class="mt-4 text-xl text-gray-600">Explorez nos domaines d'expertise et trouvez le spécialiste qu'il vous faut.</p>
         </div>
-
+  <!--  spécialités médicales ici -->
         <div class="grid grid-cols-1 gap-6 mt-8 sm:mt-12 xl:mt-20 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-14">
             @foreach ($specialites as $specialite)
                 <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
                     <div class="py-8 px-9">
                         <p class="text-lg font-bold text-gray-900">{{ $specialite->nom }}</p>
-                        <p class="mt-1 text-gray-800">Description courte de la spécialité</p>
-                        <p class="mt-6 text-base text-gray-700">Informations supplémentaires sur la spécialité ou comment prendre rendez-vous.</p>
                     </div>
                 </a>
             @endforeach
-        </div>
-
-            <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
-                <div class="py-8 px-9">
-                    <p class="text-lg font-bold text-gray-900">Pédiatrie</p>
-                    <p class="mt-1 text-gray-800">Soins spécialisés pour enfants</p>
-                    <p class="mt-6 text-base text-gray-700">Notre équipe pédiatrique offre des soins complets pour le bien-être de vos enfants.</p>
-                </div>
-            </a>
-
-         
-            
-            <!--  spécialités médicales ici -->
+        </div>  
         </div>
     </div>
 </section>

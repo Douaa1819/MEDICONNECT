@@ -71,8 +71,21 @@ class ProfileController extends Controller
 //aficher les specialisiter dans patient
 public function showPatientProfile(): View
 {
-    $specialites = Specialite::all(); // Assurez-vous que cette ligne est correcte
-    return view('patient.profile', compact('specialites')); // Passe les spécialités à la vue
+    $specialites = Specialite::all(); 
+    return view('patient.profile', compact('specialites')); 
+}
+
+public function showProfileBasedOnRole() {
+    $role = auth()->user()->role; 
+
+    if ($role === 'patient') {
+        return view('patient.profile');
+    } elseif ($role === 'doctor') {
+        return view('doctor.profile');
+    } elseif ($role === 'admin') {
+        return view('admin.profile');
+    }
+    return redirect('/dashboard');
 }
 }
 

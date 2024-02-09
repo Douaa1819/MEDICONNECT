@@ -29,12 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register'); 
     Route::get('/patient/profile', [ProfileController::class, 'showPatientProfile'])->middleware('auth')->name('patient.profile');
-    Route::get('/patient/profile', function () {
-        if (auth()->user()->role === 'patient') {
-            return view('patient.profile'); 
-        }
-        return redirect('/');
-    })->name('patient.profile');
+    Route::get('/patient/profile', [ProfileController::class, 'showPatientProfile'])->name('patient.profile')->middleware('auth');
     Route::get('/doctor/profile', function () {
         if (auth()->user()->role === 'doctor') {
             return view('doctor.profile'); 
@@ -42,7 +37,25 @@ Route::middleware('auth')->group(function () {
         return redirect('/');
     })->name('doctor.profile');
 
+    Route::get('/admine/profile', function () {
+        if (auth()->user()->role === 'admine') {
+            return view('/admine.profile'); 
+        }
+        return redirect('/');
+    })->name('doctor.profile');
+    Route::get('/admine/speciality', function () {
+        if (auth()->user()->role === 'admine') {
+            return view('/admine.géreSpécialiter'); 
+        }
+        return redirect('/');
+    })->name('Spécialitée');
 
+    Route::get('/admine/Médicament', function () {
+        if (auth()->user()->role === 'admine') {
+            return view('/admine.géreMédicament'); 
+        }
+        return redirect('/');
+    })->name('Médicament');
 });
 
 require __DIR__.'/auth.php';
