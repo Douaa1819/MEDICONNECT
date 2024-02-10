@@ -17,20 +17,13 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
+   
     public function create(): View
     {
         $specialites = Specialite::all(); // Récupère toutes les spécialités
         return view('auth.register', compact('specialites')); // Passe les spécialités à la vue
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -59,7 +52,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return $request->role == 'doctor' ? redirect('/doctor/profile') : redirect('/patient/profile');
+        return $request->role == 'doctor' ? redirect('/doctor/doashbord') : redirect('/Home');
     }
   
     

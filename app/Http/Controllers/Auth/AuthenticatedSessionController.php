@@ -23,12 +23,12 @@ class AuthenticatedSessionController extends Controller
     protected function authenticated(Request $request, $user)
 {
     if ($user->role == 'doctor') {
-        return redirect('/doctor/profile');
+        return redirect('/doctor/doashbord');
     } elseif ($user->role == 'patient') {
-        return redirect('/patient/profile');
+        return redirect('/patient/home');
     }
 
-    return redirect('/home');
+    return redirect('/');
 }
 
     /**
@@ -43,9 +43,9 @@ class AuthenticatedSessionController extends Controller
         // Redirection basée sur le rôle de l'utilisateur
         $user = Auth::user(); // Récupérez l'utilisateur authentifié
         if ($user->role == 'doctor') {
-            return redirect('/doctor/profile');
+            return redirect('/doctor/doashbord');
         } elseif ($user->role == 'patient') {
-            return redirect('/patient/profile');
+            return redirect('/patient/home');
         }
     
         // Redirection par défaut

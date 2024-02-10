@@ -20,13 +20,13 @@ class ProfileController extends Controller
 
         // Redirige vers une vue spécifique basée sur le rôle de l'utilisateur
         if ($user->role == 'doctor') {
-            return view('doctor.profile', compact('user'));
+            return view('doctor.doashbord', compact('user'));
         } elseif ($user->role == 'patient') {
-            return view('patient.profile', compact('user'));
+            return view('patient.home', compact('user'));
         }
 
         // Redirection par défaut si le rôle n'est pas reconnu
-        return redirect('/home');
+        return redirect('/');
     }
 
     // Les méthodes update et destroy peuvent être ajustées de manière similaire si nécessaire
@@ -72,18 +72,43 @@ class ProfileController extends Controller
 public function showPatientProfile(): View
 {
     $specialites = Specialite::all(); 
-    return view('patient.profile', compact('specialites')); 
+    return view('patient.home', compact('specialites')); 
 }
 
 public function showProfileBasedOnRole() {
     $role = auth()->user()->role; 
 
     if ($role === 'patient') {
-        return view('patient.profile');
+        return view('patient.home');
     } elseif ($role === 'doctor') {
-        return view('doctor.profile');
-    } elseif ($role === 'admin') {
-        return view('admin.profile');
+        return view('doctor.doashbord');
+    }
+    
+    return redirect('/dashboard');
+}
+
+
+//admine
+public function showAdminProfile()
+{
+    if (auth()->user()->role === 'admine') {
+        return view('admine.profile');
+    }
+    return redirect('/');
+}
+
+public function manageSpeciality()
+{
+    if (auth()->user()->role === 'admine') {
+        return view('admine\géreSpécialiter');
+    }
+    return redirect('/dashboard');
+}
+
+public function manageMedicament()
+{
+    if (auth()->user()->role === 'admine') {
+        return view('admine\géreMédicament');
     }
     return redirect('/dashboard');
 }

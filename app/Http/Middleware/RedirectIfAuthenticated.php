@@ -22,12 +22,14 @@ class RedirectIfAuthenticated
 
         // Redirection basée sur le rôle
         if ($user->role == 'doctor') {
-            return redirect('/doctor/profile');
+            return redirect('/doctor/doashbord');
         } elseif ($user->role == 'patient') {
-            return redirect('/patient/profile');
+            return redirect('/patient/home');
+        } elseif ($user->role == 'admine') {
+            return redirect('/admine/profile');
         }
 
-        return redirect('/home');
+        return redirect('/doashbord');
     }
 
     return $next($request);

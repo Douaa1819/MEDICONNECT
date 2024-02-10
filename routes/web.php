@@ -27,35 +27,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register'); 
-    Route::get('/patient/profile', [ProfileController::class, 'showPatientProfile'])->middleware('auth')->name('patient.profile');
-    Route::get('/patient/profile', [ProfileController::class, 'showPatientProfile'])->name('patient.profile')->middleware('auth');
-    Route::get('/doctor/profile', function () {
-        if (auth()->user()->role === 'doctor') {
-            return view('doctor.profile'); 
-        }
-        return redirect('/');
-    })->name('doctor.profile');
+    //Register
 
-    Route::get('/admine/profile', function () {
-        if (auth()->user()->role === 'admine') {
-            return view('/admine.profile'); 
-        }
-        return redirect('/');
-    })->name('doctor.profile');
-    Route::get('/admine/speciality', function () {
-        if (auth()->user()->role === 'admine') {
-            return view('/admine.géreSpécialiter'); 
-        }
-        return redirect('/');
-    })->name('Spécialitée');
-
-    Route::get('/admine/Médicament', function () {
-        if (auth()->user()->role === 'admine') {
-            return view('/admine.géreMédicament'); 
-        }
-        return redirect('/');
-    })->name('Médicament');
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    // page Patient 
+    Route::get('patient/home', [ProfileController::class, 'showPatientProfile'])->middleware('auth')->name('patient.home');
+// Profil du docteur *********
+    Route::get('/doctor/doashbord', [ProfileController::class, 'ShowProfileBasedOnRole'])->name('doctor.doashbord');
+   // Routes administratives
+    Route::get('/admine/profile', [ProfileController::class, 'showAdminProfile'])->name('admin.profile');
+    Route::get('/admine/speciality', [ProfileController::class, 'manageSpeciality'])->name('admin.speciality');
+    Route::get('/admine/medicament', [ProfileController::class, 'manageMedicament'])->name('admin.medicament');
 });
+
 
 require __DIR__.'/auth.php';

@@ -12,12 +12,6 @@ use App\Models\Specialite;
 
 class SpecialiteController extends Controller
 {
-    public function index()
-    {
-        $specialites = Specialite::getAllSpecialites();
-        return view('auth.register', compact('specialites'));
-    }
-
     public function manageSpeciality()
     {
         // Ici, vous pourriez récupérer les spécialités de la base de données, par exemple :
