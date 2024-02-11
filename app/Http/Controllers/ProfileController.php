@@ -23,6 +23,8 @@ class ProfileController extends Controller
             return view('doctor.doashbord', compact('user'));
         } elseif ($user->role == 'patient') {
             return view('patient.home', compact('user'));
+        } elseif ($user->role == 'admine') {
+            return view('admine.profile', compact('user'));
         }
 
         // Redirection par défaut si le rôle n'est pas reconnu
@@ -82,21 +84,14 @@ public function showProfileBasedOnRole() {
         return view('patient.home');
     } elseif ($role === 'doctor') {
         return view('doctor.doashbord');
-    }
+    }elseif( $role === 'admine') {
+        return view('/admine/profile');
     
-    return redirect('/dashboard');
+    return redirect('/register');
 }
-
+}
 
 //admine
-public function showAdminProfile()
-{
-    if (auth()->user()->role === 'admine') {
-        return view('admine.profile');
-    }
-    return redirect('/');
-}
-
 public function manageSpeciality()
 {
     if (auth()->user()->role === 'admine') {

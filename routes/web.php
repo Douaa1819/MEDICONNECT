@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpecialiteController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,10 +36,18 @@ Route::middleware('auth')->group(function () {
 // Profil du docteur *********
     Route::get('/doctor/doashbord', [ProfileController::class, 'ShowProfileBasedOnRole'])->name('doctor.doashbord');
    // Routes administratives
-    Route::get('/admine/profile', [ProfileController::class, 'showAdminProfile'])->name('admin.profile');
+    Route::get('/admine/profile', [ProfileController::class, 'ShowProfileBasedOnRole'])->name('admin.profile');
     Route::get('/Speciality', [ProfileController::class, 'manageSpeciality'])->name('Speciality');
     Route::get('/Medicament', [ProfileController::class, 'manageMedicament'])->name('Medicament');
     Route::get('/Profile/Edite', [ProfileController::class, 'manageProfile'])->name('Edite.profile');
+
+  
+
+    Route::get('/logout', function () {
+        request()->session()->invalidate();
+        \Illuminate\Support\Facades\Auth::logout();
+        return redirect('/login');
+    })->name('logout.perform');
 });
 
 

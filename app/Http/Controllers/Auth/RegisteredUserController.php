@@ -20,8 +20,8 @@ class RegisteredUserController extends Controller
    
     public function create(): View
     {
-        $specialites = Specialite::all(); // Récupère toutes les spécialités
-        return view('auth.register', compact('specialites')); // Passe les spécialités à la vue
+        $specialites = Specialite::all(); // Récupère 
+        return view('auth.register', compact('specialites')); 
     }
 
     public function store(Request $request): RedirectResponse
@@ -52,8 +52,15 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return $request->role == 'doctor' ? redirect('/doctor/doashbord') : redirect('/Home');
-    }
+        if ($request->role == 'doctor') {
+            return redirect('/doctor/dashboard');
+        } elseif ($request->role == 'patient') {
+            return redirect('/Home');
+        } else {
+            return redirect('/register');
+        }
+        
+    }}
+    
   
     
-}
