@@ -102,7 +102,7 @@ public function manageSpeciality()
     if (auth()->user()->role === 'admine') {
         return view('admine\géreSpécialiter');
     }
-    return redirect('/dashboard');
+    return view('admine.profile');
 }
 
 public function manageMedicament()
@@ -110,7 +110,18 @@ public function manageMedicament()
     if (auth()->user()->role === 'admine') {
         return view('admine\géreMédicament');
     }
-    return redirect('/dashboard');
+    return view('admine.profile');
 }
+public function manageProfile()
+{
+    if (auth()->user()->role === 'admine') { // Assurez-vous que la valeur 'admine' est correcte selon votre base de données. Généralement, c'est 'admin'.
+        return view('admine\Editeprofile', [ // Utilisez un point pour séparer les dossiers au lieu de l'antislash. Aussi, corrigez le chemin si nécessaire.
+            'user' => auth()->user(),
+        ]);
+    }
+   
+    return view('admine.profile');
+}
+
 }
 

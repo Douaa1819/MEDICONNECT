@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="../public/image/licon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../public/css/style.css">
-    <title>travel</title>
+    <title>MidConnect</title>
 </head>
 
 <body class="bg-no-repeat bg-right bg-fixed" style="background-image:  background-size: contain;">

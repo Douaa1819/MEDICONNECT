@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admine/profile', [ProfileController::class, 'showAdminProfile'])->name('admin.profile');
     Route::get('/admine/speciality', [ProfileController::class, 'manageSpeciality'])->name('admin.speciality');
     Route::get('/admine/medicament', [ProfileController::class, 'manageMedicament'])->name('admin.medicament');
+    Route::get('/admine/Profile/Edite', [ProfileController::class, 'manageProfile'])->name('Edite.profile');
 });
 
 
