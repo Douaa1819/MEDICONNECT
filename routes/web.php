@@ -40,9 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/Speciality', [ProfileController::class, 'manageSpeciality'])->name('Speciality');
     Route::get('/Medicament', [ProfileController::class, 'manageMedicament'])->name('Medicament');
     Route::get('/Profile/Edite', [ProfileController::class, 'manageProfile'])->name('Edite.profile');
-
-  
-
+    //specialiter Crud:
+    Route::get('/Speciality', [SpecialiteController::class, 'Show'])->name('Speciality');
+    Route::get('/detet-Spécialiter/{id}', [SpecialiteController::class, 'delete'])->name('delet.spesialiter');
     Route::get('/logout', function () {
         request()->session()->invalidate();
         \Illuminate\Support\Facades\Auth::logout();

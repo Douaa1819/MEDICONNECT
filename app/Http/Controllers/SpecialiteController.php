@@ -11,7 +11,21 @@ namespace App\Http\Controllers;
 use App\Models\Specialite;
 
 class SpecialiteController extends Controller
+
 {
+    public function Show()
+    {
+
+        $specialites = Specialite::all();
+        return view('admine.géreSpécialiter', compact('specialites'));
+    }
+
+    public function delete($id){
+      $data= Specialite::find($id);
+      $data->delete();
+      return redirect()->back();
+
+    }
     public function manageSpeciality()
     {
         // Ici, vous pourriez récupérer les spécialités de la base de données, par exemple :
