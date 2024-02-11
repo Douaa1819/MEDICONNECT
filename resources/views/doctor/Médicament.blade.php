@@ -18,7 +18,7 @@
         <aside class="bg-gradient-to-br from-gray-800 to-gray-900 -translate-x-80 fixed inset-0 z-50 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
           <div class="relative border-b border-white/20">
             <a class="flex items-center gap-4 py-6 px-8" href="#/">
-              <h6 class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-white">Material Tailwind Dashboard</h6>
+              <h6 class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-white"> Dashboard</h6>
             </a>
             <button class="middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-white hover:bg-white/10 active:bg-white/30 absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden" type="button">
               <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
@@ -142,6 +142,154 @@
             </div>
           </nav>
           <div class="mt-12">
+
+
+
+
+
+
+            <div class="container mx-auto mt-5">
+
+              <h2>Liste des Médicament</h2>
+          
+              <div class="flex justify-end mb-2">
+                  <button id="openAddModal" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                      </svg>
+                      Ajouter
+                  </button>
+              </div>
+          
+              <div class="container mx-auto mt-5 flex justify-center">
+                <table>
+                  <thead>
+                      <tr>
+                          <th class="border px-4 py-2">Spécialité</th>
+                          <th class="border px-4 py-2">Nom De medicament</th>
+                          <th class="border px-4 py-2">Opération</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($medicaments as $medicament)
+                    <tr>
+                        <td class="border px-4 py-2">{{ $medicament->specialite->nom ?? 'Non spécifiée' }}</td>
+                        <td class="border px-4 py-2">{{ $medicament->name }}</td>
+                                  <td class="border px-4 py-2 flex justify-around">
+                                      <button class="btn-edit bg-blue-500 hover:bg-blue-700 text-white font-bold mx-4 py-1 px-2 rounded"
+                                              data-id="{{ $medicament->id }}" data-name="{{ $medicament->name }}">Modifier</button>
+                                      <a onclick="return confirm('Are you sure to delete this?')" href="{{route('delet.Médicament',$medicament->id)}}">
+                                          <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">Supprimer</button>
+                                      </a>
+                                  </td>
+                              </tr>
+                          @endforeach
+                         
+                  </tbody>
+              </table>
+              
+          </div>
+          
+          
+          <!-- Pop-up Ajouter Medicament -->
+          <div id="addModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center">
+            <div class="bg-white p-4 rounded-lg max-w-sm mx-auto">
+                <form action="" method="POST"> <!-- Assurez-vous d'ajouter la bonne route d'action -->
+                    @csrf
+                    <div class="mb-4">
+                        <label for="specialiteNom" class="block text-gray-700 text-sm font-bold mb-2">Nom de Médicament:</label>
+                        <input type="text" name="nom" id="specialiteNom" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="specialiteId" class="block text-gray-700 text-sm font-bold mb-2">Spécialité :</label>
+                        <select name="specialite_id" id="specialiteId" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <option value="">Choisir une spécialité</option>
+                            @foreach ($specialites as $specialite)
+                                <option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Ajouter
+                        </button>
+                        <button type="button" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onclick="document.getElementById('addModal').classList.add('hidden')">
+                            Fermer
+                        </button>
+                    </div>
+                </form>        
+            </div>
+        </div>
+        
+          
+          
+          <!-- Pop-up de Modification -->
+          <div id="modalEdit" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+              <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                  <form id="editForm" action="" method="POST">
+                      @csrf
+                      <input type="hidden" name="_method" value="PUT">
+                      @method('PUT')
+                      <input type="hidden" id="specialiteId" name="id">
+                      <div class="mb-4">
+                          <label for="editNom" class="block text-gray-700 text-sm font-bold mb-2">Nom de Médicament:</label>
+                          <input type="text" id="editNom" name="nom" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                      </div>
+                      <div class="flex items-center justify-between">
+                          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                              Modifier
+                          </button>
+                          <button type="button" id="closeEditModal" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                              Fermer
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          
+          
+          
+          <script>
+              document.getElementById('openAddModal').addEventListener('click', function() {
+                  document.getElementById('addModal').classList.remove('hidden');
+              });
+          
+              document.getElementById('closeAddModal').addEventListener('click', function() {
+                  document.getElementById('addModal').classList.add('hidden');
+              });
+              </script>
+          
+          
+          
+          <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                  const editButtons = document.querySelectorAll('.btn-edit');
+                  const modalEdit = document.getElementById('modalEdit');
+                  const closeEditModal = document.getElementById('closeEditModal');
+              
+                  editButtons.forEach(button => {
+                      button.addEventListener('click', function() {
+                          const id = button.getAttribute('data-id');
+                          const nom = button.getAttribute('data-nom'); // Assurez-vous que cette ligne utilise `nom` pour correspondre avec l'attribut.
+              
+                          const form = document.getElementById('editForm');
+                          form.action = `/specialites/update/${id}`; // Met à jour l'action avec l'ID correct
+                          document.getElementById('editNom').value = nom; // Assurez-vous que cette ligne utilise la même variable `nom`.
+              
+                          modalEdit.classList.remove('hidden');
+                      });
+                  });
+              
+                  closeEditModal.addEventListener('click', function() {
+                      modalEdit.classList.add('hidden');
+                  });
+              });
+              </script>
+              
+              
+              
+          </body>
+          
             
             
             

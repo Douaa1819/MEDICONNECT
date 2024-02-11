@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class medicament extends Model
 {
-    use HasFactory;
+    protected $table = 'medicaments';
+    protected $fillable = ['name'];
+
+    
+    public function specialite()
+    {
+        return $this->belongsTo(Specialite::class, 'specialite_id');
+    }
 }

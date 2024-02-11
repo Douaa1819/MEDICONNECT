@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpecialiteController;
+use App\Http\Controllers\MedicamentController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
@@ -45,11 +46,14 @@ Route::middleware('auth')->group(function () {
     //add
     Route::post('/Speciality', [SpecialiteController::class, 'store'])->name('specialites.store');
     //Update 
-    // routes/web.php
-// Dans routes/web.php
 Route::put('/specialites/update/{id}', [SpecialiteController::class, 'update'])->name('specialites.update');
     //delete
     Route::get('/detet-Spécialiter/{id}', [SpecialiteController::class, 'delete'])->name('delet.spesialiter');
+
+
+    //Médicament
+    Route::get('/Medicament', [MedicamentController::class, 'index'])->name('Medicament');
+    Route::get('/detet/Medicament/{id}', [MedicamentController::class, 'destroy'])->name('delet.Médicament');
     Route::get('/logout', function () {
         request()->session()->invalidate();
         \Illuminate\Support\Facades\Auth::logout();

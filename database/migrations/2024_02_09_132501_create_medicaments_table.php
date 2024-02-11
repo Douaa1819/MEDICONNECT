@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('medicaments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('specialite_id'); 
+            $table->foreign('specialite_id')->references('id')->on('specialites'); 
             $table->timestamps();
         });
     }

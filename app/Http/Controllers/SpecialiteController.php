@@ -6,12 +6,22 @@ use Illuminate\Http\Request;
 use App\Models\Specialite; 
 
 class SpecialiteController extends Controller
+
+
 {
+
     public function Show()
     {
         $specialites = Specialite::all();
         return view('admine.géreSpécialiter', compact('specialites')); 
     }
+
+
+    public function showForm() // Nom de méthode exemple
+{
+    $specialites = Specialite::all(); // Récupère toutes les spécialités
+    return view('doctor.Médicament', compact('specialites'));
+}
 
     public function store(Request $request)
     {
