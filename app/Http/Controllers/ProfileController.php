@@ -108,20 +108,28 @@ public function manageSpeciality()
 public function manageMedicament()
 {
     if (auth()->user()->role === 'admine') {
-        return view('admine\géreMédicament');
+        return view('admine\géreMédicament');}
+        elseif(auth()->user()->role === 'doctor'){
+            return view('doctor\Médicament');
     }
     return view('admine.profile');
 }
+
 public function manageProfile()
 {
     if (auth()->user()->role === 'admine') { // Assurez-vous que la valeur 'admine' est correcte selon votre base de données. Généralement, c'est 'admin'.
         return view('admine\Editeprofile', [ // Utilisez un point pour séparer les dossiers au lieu de l'antislash. Aussi, corrigez le chemin si nécessaire.
             'user' => auth()->user(),
         ]);
+    } elseif (auth()->user()->role === 'doctor') {
+        return view('doctor\Editeprofile', [ // Corrigez le chemin avec des points.
+            'user' => auth()->user(),
+        ]);
     }
-   
-    return view('admine.profile');
+    // Redirection par défaut si l'utilisateur n'est ni 'admine' ni 'doctor'.
+    // Vous pouvez ajuster cette vue de redirection selon les besoins de votre application.
+    return view('admine.profile', [
+        'user' => auth()->user(),
+    ]);
 }
-
 }
-

@@ -36,9 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/doctor/doashbord', [ProfileController::class, 'ShowProfileBasedOnRole'])->name('doctor.doashbord');
    // Routes administratives
     Route::get('/admine/profile', [ProfileController::class, 'showAdminProfile'])->name('admin.profile');
-    Route::get('/admine/speciality', [ProfileController::class, 'manageSpeciality'])->name('admin.speciality');
-    Route::get('/admine/medicament', [ProfileController::class, 'manageMedicament'])->name('admin.medicament');
-    Route::get('/admine/Profile/Edite', [ProfileController::class, 'manageProfile'])->name('Edite.profile');
+    Route::get('/Speciality', [ProfileController::class, 'manageSpeciality'])->name('Speciality');
+    Route::get('/Medicament', [ProfileController::class, 'manageMedicament'])->name('Medicament');
+    Route::get('/Profile/Edite', [ProfileController::class, 'manageProfile'])->name('Edite.profile');
 });
 
 
