@@ -42,6 +42,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/Profile/Edite', [ProfileController::class, 'manageProfile'])->name('Edite.profile');
     //specialiter Crud:
     Route::get('/Speciality', [SpecialiteController::class, 'Show'])->name('Speciality');
+    //add
+    Route::post('/Speciality', [SpecialiteController::class, 'store'])->name('specialites.store');
+    //Update 
+    // routes/web.php
+// Dans routes/web.php
+Route::put('/specialites/update/{id}', [SpecialiteController::class, 'update'])->name('specialites.update');
+    //delete
     Route::get('/detet-Spécialiter/{id}', [SpecialiteController::class, 'delete'])->name('delet.spesialiter');
     Route::get('/logout', function () {
         request()->session()->invalidate();

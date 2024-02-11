@@ -3,54 +3,63 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Models\Specialite;
-
-namespace App\Http\Controllers;
-
-use App\Models\Specialite;
+use App\Models\Specialite; 
 
 class SpecialiteController extends Controller
-
 {
     public function Show()
     {
-
         $specialites = Specialite::all();
-        return view('admine.géreSpécialiter', compact('specialites'));
+        return view('admine.géreSpécialiter', compact('specialites')); 
     }
 
-    public function delete($id){
-      $data= Specialite::find($id);
-      $data->delete();
-      return redirect()->back();
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
 
+        Specialite::create([
+            'nom' => $request->input('nom'),
+        ]);
+
+        return redirect()->back()->with('success', 'Spécialité ajoutée avec succès.');
     }
+
+
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'nom' => 'required|string|max:255',
+    ]);
+
+    $specialite = Specialite::findOrFail($id);
+    $specialite->update([
+        'nom' => $request->nom,
+    ]);
+
+    return redirect()->back()->with('success', 'Spécialité modifiée avec succès.');
+}
+
+
+
+
+    public function delete($id)
+    {
+        $data = Specialite::find($id); 
+        $data->delete();
+        return redirect()->back(); 
+    }
+
     public function manageSpeciality()
     {
-        // Ici, vous pourriez récupérer les spécialités de la base de données, par exemple :
-        // $specialities = Speciality::all();
-        
-        // Retourne la vue de gestion des spécialités avec les données (si nécessaire)
-        return view('admin.gereSpecialiter');
+       
+        return view('admin.gereSpecialiter'); 
     }
 
-    /**
-     * Affiche la page de gestion des médicaments.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function manageMedicament()
     {
-        // De même, pour les médicaments, vous pourriez faire :
-        // $medicaments = Medicament::all();
-        
-        // Retourne la vue de gestion des médicaments avec les données (si nécessaire)
+       
         return view('admin.gereMedicament');
     }
 }
-
-    
-
-
-
