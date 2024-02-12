@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
         if ($request->role == 'doctor') {
             return redirect('/doctor/doashbord');
         } elseif ($request->role == 'patient') {
-            return redirect('/Home');
+            return redirect('/patient/home');
         } else {
             return redirect('/register');
         }
