@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         if ($request->role == 'doctor') {
-            return redirect('/doctor/dashboard');
+            return redirect('/doctor/doashbord');
         } elseif ($request->role == 'patient') {
             return redirect('/Home');
         } else {
