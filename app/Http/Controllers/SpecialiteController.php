@@ -51,7 +51,11 @@ class SpecialiteController extends Controller
     return redirect()->back()->with('success', 'Spécialité modifiée avec succès.');
 }
 
-
+    public function showDoctors($id)
+{
+    $specialite = Specialite::with('doctors')->findOrFail($id);
+    return view('patient.doctors', compact('specialite'));
+}
 
 
     public function delete($id)

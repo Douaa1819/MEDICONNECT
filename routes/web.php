@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/Speciality', [ProfileController::class, 'manageSpeciality'])->name('Speciality');
     Route::get('/Medicament', [ProfileController::class, 'manageMedicament'])->name('Medicament');
     Route::get('/Profile/Edite', [ProfileController::class, 'manageProfile'])->name('Edite.profile');
+    Route::get('/patient/Edite', [ProfileController::class, 'manageProfile'])->name('Edite.patient');
     //specialiter Crud:
     Route::get('/Speciality', [SpecialiteController::class, 'Show'])->name('Speciality');
     //add
@@ -49,7 +50,8 @@ Route::middleware('auth')->group(function () {
 Route::put('/specialites/update/{id}', [SpecialiteController::class, 'update'])->name('specialites.update');
     //delete
     Route::get('/detet-Spécialiter/{id}', [SpecialiteController::class, 'delete'])->name('delet.spesialiter');
-
+//show doctors
+Route::get('/specialites/{id}/doctors', [SpecialiteController::class, 'showDoctors'])->name('specialites.doctors');
 
     //Médicament
     Route::get('/Medicament', [MedicamentController::class, 'index'])->name('Medicament');

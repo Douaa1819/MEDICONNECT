@@ -120,11 +120,12 @@ public function manageProfile()
         return view('doctor\Editeprofile', [ // Corrigez le chemin avec des points.
             'user' => auth()->user(),
         ]);
-    }
-    // Redirection par défaut si l'utilisateur n'est ni 'admine' ni 'doctor'.
-    // Vous pouvez ajuster cette vue de redirection selon les besoins de votre application.
-    return view('admine.profile', [
+    } elseif (auth()->user()->role === 'patient') {
+        return view('patient\Edite', [ // Corrigez le chemin avec des points.
+            'user' => auth()->user(),
+        ]);
+    return view('', [
         'user' => auth()->user(),
     ]);
 }
-}
+}}

@@ -9,7 +9,10 @@ class Specialite extends Model
     protected $fillable = ['nom'];
 
 
-
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class, 'specialite_id');
+    }
     public function medicaments()
     {
         return $this->hasMany(Medicament::class);

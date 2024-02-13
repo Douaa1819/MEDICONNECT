@@ -20,9 +20,10 @@
             <p class="mt-4 text-xl text-gray-600">Explorez nos domaines d'expertise et trouvez le spécialiste qu'il vous faut.</p>
         </div>
   <!--  spécialités médicales ici -->
+
         <div class="grid grid-cols-1 gap-6 mt-8 sm:mt-12 xl:mt-20 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-14">
             @foreach ($specialites as $specialite)
-                <a href="#" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
+                <a href="{{ route('specialites.doctors', $specialite->id) }}" class="block bg-blue-100 shadow-lg hover:shadow-xl transition-shadow duration-200">
                     <div class="py-8 px-9">
                         <p class="text-lg font-bold text-gray-900">{{ $specialite->nom }}</p>
                     </div>

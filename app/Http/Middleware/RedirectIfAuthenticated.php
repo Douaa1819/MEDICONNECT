@@ -29,7 +29,7 @@ class RedirectIfAuthenticated
             return redirect('/admine/profile');
         }
 
-        return redirect('/doashbord');
+        return redirect('/register');
     }
 
     return $next($request);

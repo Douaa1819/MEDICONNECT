@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
 
             <!-- Settings Dropdown -->
-            <div class=" right-0 mb-4 mr-4 hidden sm:flex sm:items-center sm:ms-6">
+            <div class=" right-0 mb-9 mr-4  justify-end hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -25,6 +25,14 @@
                                 </svg>
                             </div>
                         </button>
+                        <div class="flex justify-end">
+                        <div class="h-full">
+                            <button class="flex items-center gap-3 py-3 px-5 rounded-lg text-black hover:bg-gray-200 active:bg-gray-300 transition-all">
+                              <img src="{{asset('images/profile.jpg')}}" alt="Profile" class="w-12 h-12 rounded-full object-cover">
+                            </button>
+                          </div>
+                        </div>
+                          </div>
                     </x-slot>
 
                     
