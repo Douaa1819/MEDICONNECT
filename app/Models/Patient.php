@@ -12,6 +12,12 @@ class Patient extends User
     {
         return self::where('role', 'patient')->get();
     }
-   
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function appointement(){
+        return $this->hasOne(Reservation::class, 'patient_id');
+    }
   
 }

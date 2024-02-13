@@ -25,14 +25,20 @@
                                 </svg>
                             </div>
                         </button>
-                        <div class="flex justify-end">
-                        <div class="h-full">
-                            <button class="flex items-center gap-3 py-3 px-5 rounded-lg text-black hover:bg-gray-200 active:bg-gray-300 transition-all">
-                              <img src="{{asset('images/profile.jpg')}}" alt="Profile" class="w-12 h-12 rounded-full object-cover">
+
+                        {{-- iciii --}}
+                        <x-slot name="trigger">
+                            <button class="inline-flex items-center">
+                                <img src="{{ Auth::user()->profile_picture_url }}" alt="Profile" class="w-8 h-8 rounded-full">
                             </button>
-                          </div>
-                        </div>
-                          </div>
+                        </x-slot>
+                        
+                        <x-slot name="content">
+                            <!-- Formulaire de téléchargement d'image -->
+                            <form action="{{ route('user.profile.picture.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="picture" onchange="this.form.submit()">
+                            </form>
                     </x-slot>
 
                     

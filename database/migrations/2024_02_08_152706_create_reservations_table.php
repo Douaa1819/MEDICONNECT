@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status')->default(0); // Pour false par défaut 
+            $table->unsignedBigInteger('doctor_id');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->nullable();
+            $table->unsignedBigInteger('patient_id');
+            $table->foreign('patient_id')->references('id')->on('patients')->nullable(); 
+            $table->enum('booking_time', ['8:00', '9:00', '10:00', '11:00', '2:00', '3:00', '4:00', '5:00'])->nullable();
+            $table->boolean('status')->default(false);
+            $table->timestamp('date');
             $table->timestamps();
         });
     }

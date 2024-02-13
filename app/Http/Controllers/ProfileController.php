@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Specialite; 
+use App\Models\Reservation; 
 class ProfileController extends Controller
 {
     /**
@@ -18,7 +19,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user(); // Récupère l'utilisateur authentifié
 
-        // Redirige vers une vue spécifique basée sur le rôle de l'utilisateur
         if ($user->role == 'doctor') {
             return view('doctor.doashbord', compact('user'));
         } elseif ($user->role == 'patient') {
@@ -27,16 +27,8 @@ class ProfileController extends Controller
             return view('admine.profile', compact('user'));
         }
 
-        // Redirection par défaut si le rôle n'est pas reconnu
         return redirect('/');
     }
-
-    // Les méthodes update et destroy peuvent être ajustées de manière similaire si nécessaire
-
-
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -70,20 +62,21 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-//aficher les specialisiter dans patient
-public function showPatientProfile(): View
-{
-    $specialites = Specialite::all(); 
-    return view('patient.home', compact('specialites')); 
-}
+    //aficher les specialisiter dans patient
+    public function showPatientProfile(): View
+    {
+        $specialites = Specialite::all(); 
+        return view('patient.home', compact('specialites')); 
+    }
 
-public function showProfileBasedOnRole() {
+    public function showProfileBasedOnRole() {
     $role = auth()->user()->role; 
 
     if ($role === 'patient') {
         return view('patient.home');
     } elseif ($role === 'doctor') {
-        return view('doctor.doashbord');
+        $appointements= Reservation::with('patient')->get();
+        return view('doctor.doashbord', compact('appointements'));
     }elseif( $role === 'admine') {
         return view('/admine/profile');
     
@@ -128,4 +121,33 @@ public function manageProfile()
         'user' => auth()->user(),
     ]);
 }
-}}
+//reservatiion
+}
+ public function showrecervation(){
+
+    return view('doctor\doashbord');
+
+
+ }
+
+//Update   
+
+
+public function updateProfilePicture(Request $request)
+{
+    $request->validate([
+        'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $user = Auth::user();
+    $imageName = time().'.'.$request->picture->getClientOriginalExtension();  
+    $request->picture->move(public_path('images/profiles'), $imageName);
+
+    // Mettre à jour l'URL de l'image de profil dans la base de données
+    $user->profile_picture_url = 'images/profiles/'.$imageName;
+    // $user->save();
+    return back()->with('success', 'Image de profil mise à jour avec succès.');
+}
+
+
+}

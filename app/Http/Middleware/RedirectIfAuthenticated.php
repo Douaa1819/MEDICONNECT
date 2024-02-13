@@ -20,7 +20,6 @@ class RedirectIfAuthenticated
     if (Auth::guard($guard)->check()) {
         $user = Auth::user();
 
-        // Redirection basée sur le rôle
         if ($user->role == 'doctor') {
             return redirect('/doctor/doashbord');
         } elseif ($user->role == 'patient') {

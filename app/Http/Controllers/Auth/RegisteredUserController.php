@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\Specialite; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -45,6 +46,12 @@ class RegisteredUserController extends Controller
             Doctor::create([
                 'user_id' => $user->id,
                 'specialite_id' => $request->specialite_id,
+            ]);
+        }
+
+        if ($request->role === 'patient') {
+            Patient ::create([
+                'user_id' => $user->id,
             ]);
         }
 
