@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class medicament extends Model
 {
     protected $table = 'medicaments';
-    protected $fillable = ['name'];
+ 
+    protected $fillable = ['name', 'specialite_id'];
 
     
     public function specialite()

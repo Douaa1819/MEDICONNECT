@@ -194,11 +194,12 @@
           <!-- Pop-up Ajouter Medicament -->
           <div id="addModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center">
             <div class="bg-white p-4 rounded-lg max-w-sm mx-auto">
-                <form action="" method="POST"> <!-- Assurez-vous d'ajouter la bonne route d'action -->
+                <form action="{{ route('Medicament.Add') }}" method="POST"> 
                     @csrf
+
                     <div class="mb-4">
                         <label for="specialiteNom" class="block text-gray-700 text-sm font-bold mb-2">Nom de Médicament:</label>
-                        <input type="text" name="nom" id="specialiteNom" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        <input type="text" name="name" id="specialiteNom" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                     </div>
                     <div class="mb-4">
                         <label for="specialiteId" class="block text-gray-700 text-sm font-bold mb-2">Spécialité :</label>

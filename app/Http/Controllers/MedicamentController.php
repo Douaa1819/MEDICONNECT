@@ -26,10 +26,19 @@ class MedicamentController extends Controller
 
    
     public function store(Request $request)
-    {
-        
-    }
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'specialite_id' => 'required|integer',
+    ]);
 
+    Medicament::create([
+        'name' => $request->input('name'),
+        'specialite_id' => $request->input('specialite_id'),
+    ]);
+
+    return redirect()->back()->with('success', 'Medicament ajoutée avec succès.');
+}
    
     public function show(string $id)
     {
