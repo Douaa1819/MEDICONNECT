@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 class ReservationsController extends Controller
 {
     
-    // public function index()
-    // {
-    //     $appointements= Reservation::with('patient')->get();
-    //     return view('doctor\doashbord', compact('appointements'));   
-    // }
+    public function index()
+    {
+        $appointements= Reservation::with('patient')->get();
+        return view('patient\reservation', compact('appointements'));   
+    }
 
     public function create()
     {

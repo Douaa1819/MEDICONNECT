@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="../public/image/licon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../public/css/style.css">
     <title>MediConnect</title>
 </head>
@@ -143,11 +144,9 @@
           </nav>
           <div class="mt-12">
 <main class="">
-    <div class="grid h-auto mb-4 pb-10 px-8 mx-4 rounded-3xl bg-gray-100 border-4 border-red-600">
       <div class="grid grid-cols-12 gap-6">
-        <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">
+        <div class="grid grid-cols-12 col-span-12 gap-3 xxl:col-span-9">
           <div class="col-span-12 mt-5">
-            <div class="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
               <div class="flex flex-row justify-between items-center">
                 <div>
                   <h1 class="text-3xl font-medium">Appointements list</h1>

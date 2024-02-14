@@ -50,10 +50,9 @@ use App\Http\Controllers\ReservationsController;
         //Update reservation
         Route::get('/user', [ProfileController::class, 'showrecervation'])->name('user.reservation');
 
-
         //Update photo Profile :
         Route::post('/user/profile/picture', [ProfileController::class, 'updateProfilePicture'])->name('user.profile.picture.update');
-
+        Route::get('/patient/Appointment', [ReservationsController::class, 'index'])->name('aptient.appointment');
         Route::get('/logout', function () {
             request()->session()->invalidate();
             \Illuminate\Support\Facades\Auth::logout();
