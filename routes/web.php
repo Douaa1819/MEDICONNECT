@@ -52,8 +52,11 @@ use App\Http\Controllers\ReservationsController;
 
         //Update photo Profile :
         Route::post('/user/profile/picture', [ProfileController::class, 'updateProfilePicture'])->name('user.profile.picture.update');
+        //Apointment Patient
         Route::get('/patient/Appointment', [ReservationsController::class, 'index'])->name('aptient.appointment');
         Route::put('/patient/Appointment', [ReservationsController::class, 'update'])->name('appointment.update');
+
+        //logout
         Route::get('/logout', function () {
             request()->session()->invalidate();
             \Illuminate\Support\Facades\Auth::logout();

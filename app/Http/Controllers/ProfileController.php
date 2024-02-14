@@ -42,9 +42,6 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
@@ -62,7 +59,9 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-    //aficher les specialisiter dans patient
+
+
+
     public function showPatientProfile(): View
     {
         $specialites = Specialite::all(); 
@@ -70,7 +69,7 @@ class ProfileController extends Controller
     }
 
 
-    
+
     public function showProfileBasedOnRole() {
     $role = auth()->user()->role; 
 
@@ -107,16 +106,16 @@ public function manageMedicament()
 
 public function manageProfile()
 {
-    if (auth()->user()->role === 'admine') { // Assurez-vous que la valeur 'admine' est correcte selon votre base de données. Généralement, c'est 'admin'.
-        return view('admine\Editeprofile', [ // Utilisez un point pour séparer les dossiers au lieu de l'antislash. Aussi, corrigez le chemin si nécessaire.
+    if (auth()->user()->role === 'admine') { 
+        return view('admine\Editeprofile', [ 
             'user' => auth()->user(),
         ]);
     } elseif (auth()->user()->role === 'doctor') {
-        return view('doctor\Editeprofile', [ // Corrigez le chemin avec des points.
+        return view('doctor\Editeprofile', [ 
             'user' => auth()->user(),
         ]);
     } elseif (auth()->user()->role === 'patient') {
-        return view('patient\Edite', [ // Corrigez le chemin avec des points.
+        return view('patient\Edite', [ 
             'user' => auth()->user(),
         ]);
     return view('', [
@@ -145,7 +144,7 @@ public function updateProfilePicture(Request $request)
     $imageName = time().'.'.$request->picture->getClientOriginalExtension();  
     $request->picture->move(public_path('images/profiles'), $imageName);
 
-    // Mettre à jour l'URL de l'image de profil dans la base de données
+    // Mettre à jour url image profil fi base de données
     $user->profile_picture_url = 'images/profiles/'.$imageName;
     // $user->save();
     return back()->with('success', 'Image de profil mise à jour avec succès.');

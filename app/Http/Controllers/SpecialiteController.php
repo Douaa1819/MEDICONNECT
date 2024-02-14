@@ -17,9 +17,9 @@ class SpecialiteController extends Controller
     }
 
 
-    public function showForm() // Nom de méthode exemple
+    public function showForm() 
 {
-    $specialites = Specialite::all(); // Récupère toutes les spécialités
+    $specialites = Specialite::all();
     return view('doctor.Médicament', compact('specialites'));
 }
 

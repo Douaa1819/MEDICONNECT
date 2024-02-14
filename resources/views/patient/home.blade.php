@@ -19,7 +19,7 @@
             <h2 class="text-3xl font-bold leading-tight text-gray-800 sm:text-4xl lg:text-5xl lg:leading-tight">Nos Spécialités Médicales</h2>
             <p class="mt-4 text-xl text-gray-600">Explorez nos domaines d'expertise et trouvez le spécialiste qu'il vous faut.</p>
         </div>
-  <!--  spécialités médicales ici -->
+  <!--  spécialités médicales  -->
 
         <div class="grid grid-cols-1 gap-6 mt-8 sm:mt-12 xl:mt-20 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-14">
             @foreach ($specialites as $specialite)
