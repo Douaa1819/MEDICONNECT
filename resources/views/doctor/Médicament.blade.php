@@ -227,15 +227,24 @@
           <!-- Pop-up de Modification -->
           <div id="modalEdit" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
               <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-                  <form id="editForm" action="" method="POST">
-                      @csrf
+                  <form id="editForm" action="{{route('Medicament.Update',['id' => ':id'])}}" method="POST">
+                      @csrf              
                       <input type="hidden" name="_method" value="PUT">
                       @method('PUT')
-                      <input type="hidden" id="specialiteId" name="id">
+                      <input type="hidden" id="hiddenmedicamentId" name="id">
                       <div class="mb-4">
-                          <label for="editNom" class="block text-gray-700 text-sm font-bold mb-2">Nom de Médicament:</label>
-                          <input type="text" id="editNom" name="nom" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                          <label for="editNom" for="medicamentId" class="block text-gray-700 text-sm font-bold mb-2">Nom de Médicament:</label>
+                          <input type="text" id="editNom" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                       </div>
+                      <div class="mb-4">
+                        <label for="specialiteId" class="block text-gray-700 text-sm font-bold mb-2">Spécialité :</label>
+                        <select name="specialite_id" id="specialiteId" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <option value="">Choisir une spécialité</option>
+                            @foreach ($specialites as $specialite)
+                                <option value="{{ $specialite->id }}">{{ $specialite->nom }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                       <div class="flex items-center justify-between">
                           <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                               Modifier
@@ -263,30 +272,33 @@
           
           
           <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                  const editButtons = document.querySelectorAll('.btn-edit');
-                  const modalEdit = document.getElementById('modalEdit');
-                  const closeEditModal = document.getElementById('closeEditModal');
-              
-                  editButtons.forEach(button => {
-                      button.addEventListener('click', function() {
-                          const id = button.getAttribute('data-id');
-                          const nom = button.getAttribute('data-nom'); // Assurez-vous que cette ligne utilise `nom` pour correspondre avec l'attribut.
-              
-                          const form = document.getElementById('editForm');
-                          form.action = `/specialites/update/${id}`; // Met à jour l'action avec l'ID correct
-                          document.getElementById('editNom').value = nom; // Assurez-vous que cette ligne utilise la même variable `nom`.
-              
-                          modalEdit.classList.remove('hidden');
-                      });
-                  });
-              
-                  closeEditModal.addEventListener('click', function() {
-                      modalEdit.classList.add('hidden');
-                  });
-              });
-              </script>
-              
+            document.addEventListener('DOMContentLoaded', function() {
+                const editButtons = document.querySelectorAll('.btn-edit');
+                const modalEdit = document.getElementById('modalEdit');
+                const closeEditModal = document.getElementById('closeEditModal');
+            
+                editButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = button.getAttribute('data-id');
+                        const name = button.getAttribute('data-name');
+                        document.getElementById('editNom').value = name; //  nom du médicament s'affiche dans l'input
+                        const specialiteId = button.getAttribute('data-specialite-id'); 
+            
+                        const form = document.getElementById('editForm');
+                        form.action = `/Medicament/Update/${id}`; 
+            
+                        const selectSpecialite = document.getElementById('specialiteId');
+                        selectSpecialite.value = specialiteId;
+            
+                        modalEdit.classList.remove('hidden');
+                    });
+                });
+            
+                closeEditModal.addEventListener('click', function() {
+                    modalEdit.classList.add('hidden');
+                });
+            });
+            </script>
               
               
           </body>

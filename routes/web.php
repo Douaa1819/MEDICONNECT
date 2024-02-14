@@ -47,6 +47,7 @@ use App\Http\Controllers\ReservationsController;
         //Médicament
         Route::get('/Medicament', [MedicamentController::class, 'index'])->name('Medicament');
         Route::post('/Medicament/Add', [MedicamentController::class, 'store'])->name('Medicament.Add');
+        Route::put('/Medicament/Update/{id}', [MedicamentController::class, 'update'])->name('Medicament.Update');
         Route::get('/detet/Medicament/{id}', [MedicamentController::class, 'destroy'])->name('delet.Médicament');
         //Update reservation
         Route::get('/user', [ProfileController::class, 'showrecervation'])->name('user.reservation');

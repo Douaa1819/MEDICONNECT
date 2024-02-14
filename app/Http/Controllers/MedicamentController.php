@@ -52,9 +52,18 @@ class MedicamentController extends Controller
     }
 
    
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
-       
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'specialite_id' => 'required|integer',
+        ]);
+        $medicaments = medicament::findOrFail($id);
+        $medicaments->update([
+            'name' => $request->name,
+            'specialite_id' => $request->specialite_id,
+        ]);
+        return redirect()->back()->with('success', 'Médicament mis à jour avec succès');
     }
 
    
