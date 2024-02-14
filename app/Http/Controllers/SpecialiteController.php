@@ -58,12 +58,18 @@ class SpecialiteController extends Controller
 }
 
 
-    public function delete($id)
-    {
-        $data = Specialite::find($id); 
+public function delete($id)
+{
+    try {
+        $data = Specialite::findOrFail($id); // Use findOrFail to automatically handle the model not found exception
         $data->delete();
-        return redirect()->back(); 
+        return redirect()->back()->with('success', 'Spécialité supprimée avec succès.');
+    } catch (\Exception $e) {
+        // Handle the error accordingly
+        return redirect()->back()->with('error', 'Erreur lors de la suppression de la spécialité.');
     }
+}
+
 
     public function manageSpeciality()
     {
