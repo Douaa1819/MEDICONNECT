@@ -1,7 +1,9 @@
 
 <x-navbar></x-navbar>
 <div class="w-full p-4">
-    <form>
+    <form method="post" action="{{route('appointment.update')}}" >
+        @csrf
+        @method('put')
         @foreach($appointements as $appointement)
             <div class="flex items-center w-auto my-6 -ml-1.5">
                 <div class="w-1/12 z-10">
@@ -23,6 +25,7 @@
                     </label>
                 </div>
             </div>
+            <input type="hidden" value="{{Auth::user()->id}}" name="patient_id">
         @endforeach
         <div class="flex justify-center">
             <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg">Confirm Appointment</button>

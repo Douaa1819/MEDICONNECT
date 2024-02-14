@@ -69,6 +69,8 @@ class ProfileController extends Controller
         return view('patient.home', compact('specialites')); 
     }
 
+
+    
     public function showProfileBasedOnRole() {
     $role = auth()->user()->role; 
 
