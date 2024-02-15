@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 
 class FavorisController extends Controller
 {
-    public function toggle($doctorId)
+    public function toggle(request $request, $doctorId)
     {
-        $patientId = Auth::id();
+        $validate = $request->validate([
+            'patient_id' => 'required|exists:patients,id',
+        ]);
+        $patientId = $validate['patient_id'];
         $favori = Favoris::where('doctor_id', $doctorId)->where('patient_id', $patientId)->first();
 
         if ($favori) {
@@ -19,7 +22,7 @@ class FavorisController extends Controller
                 'doctor_id' => $doctorId,
                 'patient_id' => $patientId,
             ]);
-        }
+          }
 
         return back()->with('success', 'Favori mis à jour.');
     }

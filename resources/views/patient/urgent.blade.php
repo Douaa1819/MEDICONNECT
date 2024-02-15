@@ -23,21 +23,21 @@
         @csrf
         @method('POST')
   
-        <input type="hidden" value="{{$doctorID}}" name="doctor_id">
-        <input type="hidden" value="{{ Auth::user()->id }}" name="patient_id"> 
+        {{-- <input type="hidden" value="{{$doctorID}}" name="doctor_id"> --}}
+        <input type="hidden" value="{{ Auth::user()->patient->id }}" name="patient_id"> 
           @foreach ($appointments as $appointment)
       <div class="flex items-center w-full justify-center  "> 
-               
-          @if (in_array($appointment, $appointments_reserved->toArray()))
-            <div class="w-11/12 ">
-              <input type="radio" id="appointment_{{ $loop->index }}" name="booking_time" value="{{ $appointment }}" class="hidden peer" disabled>
-              <label for="appointment_{{ $loop->index }}" class="inline-flex py-2 px-8 rounded-2xl items-center flex justify-between w-full text-gray-500  border cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 border-red-600 hover:bg-gray-100 dark:text-gray-400 bg-white dark:bg-gray-800 dark:hover:bg-gray-700">               
-               <div class=" text-lg font-semibold" >{{ $appointment }}</div>
-                 <p class="text-red-600  font-bold">Already reseved</p>                   
-                  <i class="fas fa-times-circle text-red-600"></i>
-              </label>
-                  </div>
-                      @else
+        @php 
+        $book = [];
+        
+        foreach ($appointments_reserved as $app ){
+         $book[] = $app->booking_time;
+        }
+       
+@endphp
+
+          @if (!in_array($appointment, $book))
+
                       <div class="w-11/12">
                        
                         <label for="appointment_{{ $loop->index }}" class="inline-flex py-2 px-8 rounded-full items-center justify-between w-full text-gray-500 bg-white border border-gray-200 cursor-pointer hover:text-gray-600 hover:bg-green-100 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 peer-checked:border-blue-600 peer-checked:text-blue-600">

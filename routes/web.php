@@ -56,10 +56,10 @@ use App\Http\Controllers\ReservationsController;
         //Update photo Profile :
         Route::post('/user/profile/picture', [ProfileController::class, 'updateProfilePicture'])->name('user.profile.picture.update');
         //Apointment Patient
-        Route::get('/patient/Appointment/{doctorID}', [ReservationsController::class, 'index'])->name('aptient.appointment');
+         Route::get('/patient/Appointment/{doctorID}', [ReservationsController::class, 'index'])->name('aptient.appointment');
         Route::post('/patient/Appointment', [ReservationsController::class, 'store'])->name('appointment.store');
-
-
+        //Urgent
+        Route::get('/patient/Urgent', [ReservationsController::class,'urgent'])->name('urgent');
         //Favpris 
         Route::post('/favoris/toggle/{doctorId}', [FavorisController::class, 'toggle'])->name('favoris.toggle');
         //logout

@@ -31,6 +31,28 @@ class ReservationsController extends Controller
     }
 
 
+    public function urgent(){
+
+        $appointments_reserved = Reservation::with(['doctor.user', 'doctor.specialite'])
+        ->whereHas('doctor.specialite', function ($query) {
+            $query->where('nom', '=', 'Médecine générale');
+        })
+        ->get();
+    
+    
+        $result = DB::select("SHOW COLUMNS FROM reservations WHERE Field = 'booking_time'");
+        preg_match("/^enum((.*))$/", $result[0]->Type, $matches);
+        
+        $appointments = array();
+        foreach (explode(',', $matches[1]) as $value) {
+            $appointments[] = trim($value, "('')");
+           
+        }
+
+     return view('patient.urgent',compact('appointments','appointments_reserved'));
+
+    }
+
     public function store(Request $request)
 
         {
@@ -50,11 +72,11 @@ class ReservationsController extends Controller
             $appointment->save();
             return redirect()->back()->with('success', 'Appointment booked successfully!');
         }
-    public function show(string $id)
-    {
-        //
-    }
+    public function reservationUrgent(){
+        
 
+
+    }
     
     public function edit(string $id)
     {

@@ -13,12 +13,23 @@
 </head>
 <body>
     <x-navbar></x-navbar>
-<section class="py-10 bg-gradient-to-r from-cyan-200 via-teal-400 to-green-300 sm:py-16 lg:py-24">
+<section class="py-10 bg-gradient-to-r from-cyan-200 via-teal-400 to-green-300  ">
     <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+        <div class="flex justify-end -mr-28 mb-10">
+        <div class="inline-flex top-2 items-center">
+            <a href="{{route('urgent')}}" class=" border, p-2 border-slate-200 rounded-md inline-flex space-x-1 items-center text-red-200 hover:text-white bg-red-600 hover:bg-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-lg font-medium hidden md:block"> Urgent</span>                     
+            </a>
+        </div>
+        </div>
         <div class="max-w-2xl mx-auto text-center">
             <h2 class="text-3xl font-bold leading-tight text-gray-800 sm:text-4xl lg:text-5xl lg:leading-tight">Nos Spécialités Médicales</h2>
             <p class="mt-4 text-xl text-gray-600">Explorez nos domaines d'expertise et trouvez le spécialiste qu'il vous faut.</p>
         </div>
+        
   <!--  spécialités médicales  -->
 
         <div class="grid grid-cols-1 gap-6 mt-8 sm:mt-12 xl:mt-20 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-14">
