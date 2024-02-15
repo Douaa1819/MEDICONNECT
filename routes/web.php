@@ -47,6 +47,7 @@ use App\Http\Controllers\ReservationsController;
 
         //Médicament
         Route::get('/Medicament', [MedicamentController::class, 'index'])->name('Medicament');
+        Route::get('/Appointment', [MedicamentController::class, 'show'])->name('Medicament.appointment');
         Route::post('/Medicament/Add', [MedicamentController::class, 'store'])->name('Medicament.Add');
         Route::put('/Medicament/Update/{id}', [MedicamentController::class, 'update'])->name('Medicament.Update');
         Route::get('/detet/Medicament/{id}', [MedicamentController::class, 'destroy'])->name('delet.Médicament');
@@ -59,8 +60,9 @@ use App\Http\Controllers\ReservationsController;
          Route::get('/patient/Appointment/{doctorID}', [ReservationsController::class, 'index'])->name('aptient.appointment');
         Route::post('/patient/Appointment', [ReservationsController::class, 'store'])->name('appointment.store');
         //Urgent
+        //Favris 
         Route::get('/patient/Urgent', [ReservationsController::class,'urgent'])->name('urgent');
-        //Favpris 
+        Route::post('/patient/Urgent', [ReservationsController::class,'reservationUrgent'])->name('urgent.store');
         Route::post('/favoris/toggle/{doctorId}', [FavorisController::class, 'toggle'])->name('favoris.toggle');
         //logout
         Route::get('/logout', function () {

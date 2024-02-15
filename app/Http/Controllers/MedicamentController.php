@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\medicament;
 use App\Models\Specialite; 
-
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
 
 class MedicamentController extends Controller
 {
@@ -40,9 +41,12 @@ class MedicamentController extends Controller
     return redirect()->back()->with('success', 'Medicament ajoutée avec succès.');
 }
    
-    public function show(string $id)
+    public function show()
     {
-        
+        $doctorID = Auth::user()->doctor->id;
+        $appointments_reserved = Reservation::where('doctor_id',$doctorID )->get();
+        return view('doctor.appointement',compact('appointments_reserved'));
+
     }
 
    

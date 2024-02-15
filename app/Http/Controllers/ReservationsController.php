@@ -72,9 +72,23 @@ class ReservationsController extends Controller
             $appointment->save();
             return redirect()->back()->with('success', 'Appointment booked successfully!');
         }
-    public function reservationUrgent(){
+    public function reservationUrgent(Request $request){
         
+        $validatedData = $request->validate([
+            'doctor_id' => 'required|exists:doctors,id',
+            'patient_id' => 'required|exists:patients,id',
+            'booking_time' => 'required',
 
+        ]);
+
+
+        $appointment = new Reservation();
+        $appointment->doctor_id = $validatedData['doctor_id'];
+        $appointment->patient_id = $validatedData['patient_id'];
+        $appointment->booking_time = $validatedData['booking_time'];
+
+        $appointment->save();
+        return redirect()->back()->with('success', 'Appointment booked successfully!');
 
     }
     
