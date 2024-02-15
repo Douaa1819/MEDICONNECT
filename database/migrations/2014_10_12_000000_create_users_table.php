@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('pictures_id')->nullable(); 
-            $table->foreign('pictures_id')->references('id')->on(' pictures'); 
             $table->rememberToken();
             $table->timestamps();
         });
@@ -28,8 +26,12 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('users');
-    }
+        public function down()
+        {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropForeign(['picture_id']);
+                $table->dropColumn('picture_id');
+            });
+        }
+
 };

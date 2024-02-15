@@ -131,24 +131,11 @@ public function manageProfile()
 
  }
 
-//Update   
 
 
-public function updateProfilePicture(Request $request)
-{
-    $request->validate([
-        'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
 
-    $user = Auth::user();
-    $imageName = time().'.'.$request->picture->getClientOriginalExtension();  
-    $request->picture->move(public_path('images/profiles'), $imageName);
 
-    // Mettre à jour url image profil fi base de données
-    $user->profile_picture_url = 'images/profiles/'.$imageName;
-    // $user->save();
-    return back()->with('success', 'Image de profil mise à jour avec succès.');
-}
 
 
 }
+

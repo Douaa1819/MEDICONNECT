@@ -21,5 +21,17 @@ class Doctor extends User
     {
         return $this->belongsTo(Specialite::class);
     }
+
+    public function isFavori($userId)
+    {
+        return $this->favoris()->where('patient_id', $userId)->exists();
+    }
+    public function favoris()
+{
+    return $this->hasMany(Favoris::class);
+}
+
+    
+
 }
 

@@ -19,7 +19,7 @@
                 <div class="flex items-center">
                     <ul class="flex space-x-4 rtl:space-x-reverse">
                         <li>
-                            <a href="/" class="py-2 px-4 text-blue-800 hover:text-blue-600 dark:text-white">Home</a>
+                            <a href="#" class="py-2 px-4 text-blue-800 hover:text-blue-600 dark:text-white">Home</a>
                         </li>
                         <li>
                             <a href="{{ route('Edite.patient') }}" class="py-2 px-4 text-gray-500 hover:text-gray-700">Edit Profile</a>
@@ -28,11 +28,12 @@
                             <a href="{{ route('logout.perform') }}" class="py-2 px-4 text-gray-500 hover:text-gray-700">Logout</a>
                         </li>
                     </ul>
+                    {{-- navbar --}}
                     <div class="flex justify-end">
                         <a href="{{ route('Edite.patient') }}">
                         <div class="h-full">
                             <button class="flex items-center gap-3 py-3 px-5 rounded-lg text-black hover:bg-gray-200 active:bg-gray-300 transition-all">
-                              <img src="{{asset('images/profile.jpg')}}" alt="Profile" class="w-12 h-12 rounded-full object-cover">
+                              <img src="{{asset('images/avatar.webp')}}" alt="Profile" class="w-12 h-12 rounded-full object-cover">
                             </button>
                           </div>
                         </div>

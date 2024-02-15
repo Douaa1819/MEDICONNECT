@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpecialiteController;
 use App\Http\Controllers\MedicamentController;
+use App\Http\Controllers\FavorisController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReservationsController;
 
@@ -58,6 +59,9 @@ use App\Http\Controllers\ReservationsController;
         Route::get('/patient/Appointment', [ReservationsController::class, 'index'])->name('aptient.appointment');
         Route::put('/patient/Appointment', [ReservationsController::class, 'update'])->name('appointment.update');
 
+
+        //Favpris 
+        Route::post('/favoris/toggle/{doctorId}', [FavorisController::class, 'toggle'])->name('favoris.toggle');
         //logout
         Route::get('/logout', function () {
             request()->session()->invalidate();
