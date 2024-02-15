@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Specialite; 
 use App\Models\Reservation; 
+use Illuminate\Support\Facades\DB;
 class ProfileController extends Controller
 {
     /**
@@ -76,8 +77,16 @@ class ProfileController extends Controller
     if ($role === 'patient') {
         return view('patient.home');
     } elseif ($role === 'doctor') {
-        $appointements= Reservation::with('patient')->get();
-        return view('doctor.doashbord', compact('appointements'));
+        $result = DB::select("SHOW COLUMNS FROM reservations WHERE Field = 'booking_time'");
+        preg_match("/^enum((.*))$/", $result[0]->Type, $matches);
+        
+        $appointments = array();
+        foreach (explode(',', $matches[1]) as $value) {
+            $appointments[] = trim($value, "('')");
+           
+        }
+        $appointments_reserved = Reservation::where('doctor_id', Auth::user()->doctor->id)->pluck('booking_time');
+        return view('doctor.doashbord', compact('appointments','appointments_reserved'));
     }elseif( $role === 'admine') {
         return view('/admine/profile');
     

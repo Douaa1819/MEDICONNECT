@@ -1,35 +1,96 @@
 
 <x-navbar></x-navbar>
+
+
+<nav class = "flex justify-center px-5 py-3 text-gray-700  rounded-lg bg-gray-50 dark:bg-[#1E293B] " aria-label="Breadcrumb">
+    <ol class = "inline-flex items-center space-x-1 md:space-x-3">
+        <li class = "inline-flex items-center">
+            <a href="" class = "inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">                    
+                Today's calendrier
+            </a>
+        </li>
+        <li>
+            <div class = "flex items-center">
+                <svg class = "w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
+                <a href="" class = "ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">appointement</a>
+            </div>
+        </li>
+    </ol>
+</nav>
 <div class="w-full p-4">
-    <form method="post" action="{{route('appointment.update')}}" >
+    {{-- <form method="post" action="{{route('appointment.store')}}" >
         @csrf
-        @method('put')
-        @foreach($appointements as $appointement)
-            <div class="flex items-center w-auto my-6 -ml-1.5">
-                <div class="w-1/12 z-10">
-                    <div class="w-3.5 h-3.5 {{ $appointement->status == 0  }}"></div>
+        @method('POST')
+        <input type="hidden" value="1" name="doctor_id">
+        <input type="hidden" value="{{ Auth::user()->id }}" name="patient_id">
+        @foreach ($appointments as $appointment)
+    <div class="flex items-center w-full justify-center  ">
+    
+        @if (in_array($appointment, $appointments_reserved->toArray()))
+          <div class="w-11/12 ">
+            <input type="radio" id="appointment{{ $loop->index }}" name="bookingtime" value="{{ $appointment }}" class="hidden peer" disabled>
+            <label for="appointment{{ $loop->index }}" class="inline-flex py-2 px-8 rounded-2xl items-center flex justify-between w-full text-gray-500  border cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 border-red-600 hover:bg-gray-100 dark:text-gray-400 bg-white dark:bg-gray-800 dark:hover:bg-gray-700">
+             <div class=" text-lg font-semibold" >{{ $appointment }}</div>
+               <p class="text-red-600  font-bold">Already reseved</p>
+                <i class="fas fa-times-circle text-red-600"></i>
+            </label>
                 </div>
-                <div class="w-11/12">
-                    <input type="radio" id="appointement{{ $appointement->id }}" name="appointement" value="{{ $appointement->id }}" class="hidden peer" {{ $appointement->status == 1 ? 'disabled' : '' }}>
-                    <label for="appointement{{ $appointement->id }}" class="inline-flex py-2 px-8  rounded-2xl items-center justify-between w-full text-gray-500 bg-white border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 {{ $appointement->status == 1 ? 'opacity-50 cursor-not-allowed' : '' }}">
-                        <div class="block">
-                            <div class="w-full text-lg font-semibold">{{ $appointement->booking_time }}</div>
-                            <div class="w-full">{{ $appointement->date }}</div>
-                        </div>
-                        <div>
-                            <div class="w-full {{ $appointement->status == 0 ? 'text-green-600' : 'text-red-600' }}">{{ $appointement->status == 0 ? 'Free' : 'Already Reserved' }}</div>
-                        </div>
-                        <div>
-                            <i class="{{ $appointement->status == 0 ? 'fa-solid fa-circle-check text-green-600' : 'fa-solid fa-heart-circle-xmark text-red-600' }}"></i>
-                        </div>
+                    @else
+                    <div class="w-11/12">
+                    <input type="radio" id="appointment{{ $loop->index }}" name="booking_time" value="{{ $appointment }}" class="hidden peer" required>
+                    <label for="appointment{{ $loop->index }}" class="inline-flex py-2 px-8 rounded-full items-center justify-between w-full text-gray-500 bg-white border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-green-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <div class=" text-lg font-semibold">{{ $appointment }}</div>
+                        <i class="fas fa-check-circle text-green-600"></i>
                     </label>
                 </div>
-            </div>
-            <input type="hidden" value="{{Auth::user()->id}}" name="patient_id">
-        @endforeach
+            @endif
+
+    </div>
+@endforeach
         <div class="flex justify-center">
             <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg">Confirm Appointment</button>
         </div>
-    </form>
-</div>
+    </form> --}}
+    <form action="{{route('appointment.store')}}" method="post" class="flex flex-col gap-6 rounded-lg shadow-xl mt-4 p-8 mb-10 ">
+        @csrf
+        @method('POST')
+  
+        <input type="hidden" value="{{$doctorID}}" name="doctor_id">
+        <input type="hidden" value="{{ Auth::user()->id }}" name="patient_id"> 
+          @foreach ($appointments as $appointment)
+      <div class="flex items-center w-full justify-center  "> 
+               
+          @if (in_array($appointment, $appointments_reserved->toArray()))
+            <div class="w-11/12 ">
+              <input type="radio" id="appointment_{{ $loop->index }}" name="booking_time" value="{{ $appointment }}" class="hidden peer" disabled>
+              <label for="appointment_{{ $loop->index }}" class="inline-flex py-2 px-8 rounded-2xl items-center flex justify-between w-full text-gray-500  border cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 border-red-600 hover:bg-gray-100 dark:text-gray-400 bg-white dark:bg-gray-800 dark:hover:bg-gray-700">               
+               <div class=" text-lg font-semibold" >{{ $appointment }}</div>
+                 <p class="text-red-600  font-bold">Already reseved</p>                   
+                  <i class="fas fa-times-circle text-red-600"></i>
+              </label>
+                  </div>
+                      @else
+                      <div class="w-11/12">
+                       
+                        <label for="appointment_{{ $loop->index }}" class="inline-flex py-2 px-8 rounded-full items-center justify-between w-full text-gray-500 bg-white border border-gray-200 cursor-pointer hover:text-gray-600 hover:bg-green-100 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 peer-checked:border-blue-600 peer-checked:text-blue-600">
+                            <input type="radio"  name="booking_time" value="{{ $appointment }}"  required>
+                            <div class="text-lg font-semibold">{{ $appointment }}</div>
+                            <i class="fas fa-check-circle text-green-600"></i>                
+                        </label>
+                    </div>
+                    
+              @endif
+          
+      </div>
+  @endforeach
+  <x-input-error :messages="$errors->all()" class="text-sm text-red-500 ml-2" />
+
+    <div class="flex flex-start">
+        <button type="submit" class="p-2 border border-blue-800 rounded-md inline-flex space-x-1 items-center  text-white bg-indigo-600 hover:bg-indigo-500">
+          <i class="fas fa-bookmark"></i>
+          <span class="text-sm font-medium block">Book An Appointement</span>
+        </button>
+      </div>
+      </form>
+    </div>
 <x-footer></x-footer>

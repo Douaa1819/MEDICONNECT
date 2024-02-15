@@ -169,35 +169,34 @@
               <p class="text-slate-500 my-4">Hello, here are your latest appointements</p>
               <div>
                 <p class="font-bold mb-3 text-gray-700"><span><i class="fa-regular fa-sun "></i></span> Morning</p>
-                <?php $i = 0 ?>
-                @foreach($appointements as $appointement)
-                <?php $i++ ?>
-                @if($i == 5)
-                <p class="font-bold mb-3 mt-6 text-gray-700"><span><i class="fa-regular fa-moon"></i></span> Evening</p>
-                @endif
-                @if($appointement->status == 0)
-                <div id="task" class="flex justify-between items-center mb-2 border-gray-600 py-3 px-2 border-l-4 border-l-gray-600 bg-gradient-to-r from-gray-100 to-transparent hover:border-red-600 hover:from-red-200 transition-all ease-in duration-150">
-                  <div class="inline-flex items-center space-x-2">
-                    <div>
-                      <i class="fa-regular fa-clock fa-lg"></i>
-                    </div>
-                    <div>{{ $appointement->date }}<span class=" italic">{{ $appointement->booking_time }}</span></div>
+              <div class="flex flex-col gap-5">
+                    @foreach ($appointments as $appointment)
+      <div class="flex items-center w-full justify-center  "> 
+               
+          @if (in_array($appointment, $appointments_reserved->toArray()))
+            <div class="w-11/12 ">
+              <input type="radio" id="appointment_{{ $loop->index }}" name="booking_time" value="{{ $appointment }}" class="hidden peer" disabled>
+              <label for="appointment_{{ $loop->index }}" class="inline-flex py-2 px-8 rounded-2xl items-center flex justify-between w-full text-gray-500  border cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 border-red-600 hover:bg-gray-100 dark:text-gray-400 bg-white dark:bg-gray-800 dark:hover:bg-gray-700">               
+               <div class=" text-lg font-semibold" >{{ $appointment }}</div>
+                 <p class="text-red-600  font-bold">Already reseved</p>                   
+                  <i class="fas fa-times-circle text-red-600"></i>
+              </label>
                   </div>
-                  <div>free</div>
-                </div>
-                @else
-                <div id="task" class="flex justify-between items-center mb-2 border-green-600 py-3 px-2 border-l-4 border-l-green-600 bg-gradient-to-r from-green-100 to-transparent hover:border-red-600 hover:from-red-200 transition-all ease-in duration-150">
-                  <div class="inline-flex items-center space-x-2">
-                    <div>
-                      <i class="fa-regular fa-clock fa-lg"></i>
+                      @else
+                      <div class="w-11/12">
+                       
+                        <label for="appointment_{{ $loop->index }}" class="inline-flex py-2 px-8 rounded-full items-center justify-between w-full text-gray-500 bg-white border border-green-500 cursor-pointer hover:text-gray-600 hover:bg-green-100 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 peer-checked:border-blue-600 peer-checked:text-blue-600">
+                            <input type="radio"  id="appointment_{{ $loop->index }}" name="booking_time" value="{{ $appointment }}" class="hidden peer" required>
+                            <div class="text-lg font-semibold">{{ $appointment }}</div>
+                            <i class="fas fa-check-circle text-green-600"></i>                
+                        </label>
                     </div>
-                    <div>{{ $appointement->date }}<span class=" italic">{{ $appointement->booking_time }}</span></div>
-                  </div>
-                  <div>{{ $appointement->patient->user->name }}</div>
-                  <div>reserved</div>
-                </div>
-                @endif
-                @endforeach
+                    
+              @endif
+          
+      </div>
+  @endforeach
+</div>
               </div>
               <p class="text-xs text-slate-500 text-center">12/12/2024 Appointements</p>
             </div>

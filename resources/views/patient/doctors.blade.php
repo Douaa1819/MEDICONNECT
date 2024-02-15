@@ -13,7 +13,7 @@
                     </button>
                 </form>
                 
-                <a href="{{ route('aptient.appointment') }}" class="block p-6">
+                <a href="{{ route('aptient.appointment',['doctorID' =>  $doctor->id ] )}}" class="block p-6">
                     <img src="{{ asset('images/doctor.jpg') }}" alt="Profile" class="w-auto h-auto object-cover">
                     <h2 class="  text-2xl text-center font-bold text-gray-900">{{ $doctor->user->name }}</h2>
                 </a>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->foreign('patient_id')->references('id')->on('patients')->nullable(); 
             $table->enum('booking_time', ['8:00', '9:00', '10:00', '11:00', '2:00', '3:00', '4:00', '5:00'])->nullable();
-            $table->boolean('status')->default(false);
+          
             $table->timestamp('date');
             $table->timestamps();
         });

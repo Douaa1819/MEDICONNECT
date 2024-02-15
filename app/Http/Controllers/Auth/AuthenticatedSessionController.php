@@ -37,8 +37,6 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
     
         $request->session()->regenerate();
-    
-        // Redirection basée sur le rôle de l'utilisateur
         $user = Auth::user(); // Récupérez l'utilisateur authentifié
         if ($user->role == 'doctor') {
             return redirect('/doctor/doashbord');

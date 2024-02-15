@@ -9,16 +9,15 @@ class Reservation extends Model
 {
     protected $fillable = [
         'patient_id',
-        'status',
+        'doctor_id',
+        'booking_time',
     ];
+
    public function patient(){
     return $this->belongsTo(Patient::class ,'patient_id');
 
 }
 
-public function doctor(){
- return $this->belongsTo(Doctor::class ,'doctor_id');
- 
-}
+
 
 }

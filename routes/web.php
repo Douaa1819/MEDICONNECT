@@ -56,8 +56,8 @@ use App\Http\Controllers\ReservationsController;
         //Update photo Profile :
         Route::post('/user/profile/picture', [ProfileController::class, 'updateProfilePicture'])->name('user.profile.picture.update');
         //Apointment Patient
-        Route::get('/patient/Appointment', [ReservationsController::class, 'index'])->name('aptient.appointment');
-        Route::put('/patient/Appointment', [ReservationsController::class, 'update'])->name('appointment.update');
+        Route::get('/patient/Appointment/{doctorID}', [ReservationsController::class, 'index'])->name('aptient.appointment');
+        Route::post('/patient/Appointment', [ReservationsController::class, 'store'])->name('appointment.store');
 
 
         //Favpris 
