@@ -61,7 +61,9 @@
         <div class="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
             {{-- Commentaire pop up --}}
             <div class="flex items-center space-x-4 mt-2">
-                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center font-bold text-white"><i class="fa-solid fa-plus"></i></button>
+                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center font-bold text-white"> <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10.5h0m-4 0h0m-4 0h0M5 5h14c.6 0 1 .4 1 1v9c0 .6-.4 1-1 1h-6.6a1 1 0 0 0-.7.3L8.8 19c-.3.3-.8 0-.8-.4V17c0-.6-.4-1-1-1H5a1 1 0 0 1-1-1V6c0-.6.4-1 1-1Z"/>
+                </svg></button>
                 <!-- Main modal -->
                 <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                   <div class="relative p-4 w-full max-w-md max-h-full">
@@ -70,7 +72,7 @@
                       <!-- Modal header -->
                       <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                          Sign in to our platform
+                          partager votre expérience avec la communauté
                         </h3>
                         <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
                           <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -81,7 +83,7 @@
                       </div>
                       <!-- Modal body -->
                       <div class="p-4 md:p-5">
-                        <form class="space-y-4" action="" method="post">
+                        <form class="space-y-4" action="{{route('note.store')}}" method="post">
                           @csrf
                           @method('post')
                           <div>
@@ -92,11 +94,11 @@
                           <input type="hidden" name="patientID" value="{{ Auth::user()->id }}">
                           <div>
                             <select id="review" name="starCount">
-                              <option value="5">5 Stars - Excellent</option>
-                              <option value="4">4 Stars - Very Good</option>
-                              <option value="3">3 Stars - Good</option>
-                              <option value="2">2 Stars - Fair</option>
-                              <option value="1">1 Star - Poor</option>
+                              <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+                              <option value="4">⭐️⭐️⭐️⭐️</option>
+                              <option value="3">⭐️⭐️⭐️</option>
+                              <option value="2">⭐️⭐️</option>
+                              <option value="1">⭐️</option>
                             </select>
                           </div>
                           

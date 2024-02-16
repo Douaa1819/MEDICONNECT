@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpecialiteController;
 use App\Http\Controllers\MedicamentController;
 use App\Http\Controllers\FavorisController;
+use App\Http\Controllers\NoteControlle;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReservationsController;
 
@@ -65,8 +66,8 @@ use App\Http\Controllers\ReservationsController;
         Route::post('/patient/Urgent', [ReservationsController::class,'reservationUrgent'])->name('urgent.store');
         Route::post('/favorites/add/{doctorId}', [FavorisController::class, 'add'])->name('favorites.add');
         Route::delete('/favorites/remove/{doctorId}', [FavorisController::class, 'remove'])->name('favorites.remove');  
-        
-        
+        //note
+        Route::post('/Doctor/Note/store', [NoteControlle::class, 'store'])->name('note.store');
         //Doctor Profile
         Route::get('/Doctor/Profile/{doctorID}',[ReservationsController::class,'doctorProfile'])->name('Doctor.profile');
         //logout

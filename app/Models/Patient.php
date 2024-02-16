@@ -20,5 +20,9 @@ class Patient extends User
     public function reservation(){
         return $this->hasOne(reservation::class,'patient_id');
     }
+
+    public function review(){
+        return $this->hasOne(note::class);
+    }
   
 }

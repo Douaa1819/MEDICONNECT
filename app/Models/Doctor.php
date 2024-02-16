@@ -31,6 +31,12 @@ class Doctor extends User
     return $this->hasMany(Favoris::class);
 }
 
+    public function review(){
+    return $this->hasMany(note::class);
+}
+
+
+
 
 
 public function reservations() {

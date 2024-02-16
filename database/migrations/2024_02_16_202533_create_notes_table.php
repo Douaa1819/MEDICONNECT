@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-           $table->integer('Countnote');
+            $table->unsignedBigInteger('doctor_id');
+            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->unsignedBigInteger('patient_id');
+            $table->integer('Countnote');
+            $table->longText('Comment');
             $table->timestamps();
         });
     }
