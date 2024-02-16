@@ -5,8 +5,12 @@
        @forelse ($specialite->doctors as $doctor)
             <div class="bg-gray-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
                 <!-- Icône favoris -->
-                @php $isFavori = $doctor->isFavori(Auth::user()->patient->id); @endphp
-                @if ($isFavori )
+               
+                @if(Auth::check() && Auth::user()->patient)
+                @php
+                    $isFavori = $doctor->isFavori(Auth::user()->patient->id);
+                @endphp
+                @if ($isFavori)
                 <form action="{{ route('favorites.remove', $doctor->id) }}" method="post">
                     @csrf
                     @method('DELETE')     
@@ -23,7 +27,8 @@
 
                          <button type="submit"><i class="far fa-heart text-2xl"></i></button>
                         </form>
-                @endif
+                        @endif
+                        @endif
                  <a href="{{ route('Doctor.profile',['doctorID' =>  $doctor->id ] )}}" class="block p-6">
                     <img src="{{ asset('images/doctor.jpg') }}" alt="Profile" class="w-auto h-auto object-cover">
                     <h2 class="  text-2xl text-center font-bold text-gray-900">{{ $doctor->user->name }}</h2>

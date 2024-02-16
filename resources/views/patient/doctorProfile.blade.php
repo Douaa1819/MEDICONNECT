@@ -59,14 +59,61 @@
              </a>
         </div>
         <div class="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
+            {{-- Commentaire pop up --}}
             <div class="flex items-center space-x-4 mt-2">
-                <button class="flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span>comment</span>
-                </button>
+                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center font-bold text-white"><i class="fa-solid fa-plus"></i></button>
+                <!-- Main modal -->
+                <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                  <div class="relative p-4 w-full max-w-md max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                      <!-- Modal header -->
+                      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                          Sign in to our platform
+                        </h3>
+                        <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                          </svg>
+                          <span class="sr-only">Close modal</span>
+                        </button>
+                      </div>
+                      <!-- Modal body -->
+                      <div class="p-4 md:p-5">
+                        <form class="space-y-4" action="" method="post">
+                          @csrf
+                          @method('post')
+                          <div>
+                            <label for="comment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What's your thought?</label>
+                            <textarea type="text" name="comment" id="comment" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" rows="4" required>Write your review here</textarea>
+                          </div>
+                          <input type="hidden" name="doctorID" value="{{ $doctor->id }}">
+                          <input type="hidden" name="patientID" value="{{ Auth::user()->id }}">
+                          <div>
+                            <select id="review" name="starCount">
+                              <option value="5">5 Stars - Excellent</option>
+                              <option value="4">4 Stars - Very Good</option>
+                              <option value="3">3 Stars - Good</option>
+                              <option value="2">2 Stars - Fair</option>
+                              <option value="1">1 Star - Poor</option>
+                            </select>
+                          </div>
+                          
+                          <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
+
+            
         </div>
     </div>
+
+    
+   
+     
+
     <x-footer></x-footer>
