@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favoris;
 use Illuminate\Http\Request;
 use App\Models\Specialite; 
+use Illuminate\Support\Facades\Auth;
 
 class SpecialiteController extends Controller
 
@@ -54,7 +56,7 @@ class SpecialiteController extends Controller
     public function showDoctors($id)
 {
     $specialite = Specialite::with('doctors')->findOrFail($id);
-    return view('patient.doctors', compact('specialite'));
+       return view('patient.doctors', compact('specialite'));
 }
 
 

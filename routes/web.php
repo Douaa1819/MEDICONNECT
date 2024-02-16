@@ -60,10 +60,12 @@ use App\Http\Controllers\ReservationsController;
          Route::get('/patient/Appointment/{doctorID}', [ReservationsController::class, 'index'])->name('aptient.appointment');
         Route::post('/patient/Appointment', [ReservationsController::class, 'store'])->name('appointment.store');
         //Urgent
-        //Favris 
+        // Favris 
         Route::get('/patient/Urgent', [ReservationsController::class,'urgent'])->name('urgent');
         Route::post('/patient/Urgent', [ReservationsController::class,'reservationUrgent'])->name('urgent.store');
-        Route::post('/favoris/toggle/{doctorId}', [FavorisController::class, 'toggle'])->name('favoris.toggle');
+        Route::post('/favorites/add/{doctorId}', [FavorisController::class, 'add'])->name('favorites.add');
+        Route::delete('/favorites/remove/{doctorId}', [FavorisController::class, 'remove'])->name('favorites.remove');        
+
         //logout
         Route::get('/logout', function () {
             request()->session()->invalidate();

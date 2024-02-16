@@ -13,7 +13,7 @@ class Patient extends User
         return self::where('role', 'patient')->get();
     }
     public function user(){
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
   

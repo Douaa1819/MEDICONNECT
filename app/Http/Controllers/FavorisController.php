@@ -7,25 +7,37 @@ use Illuminate\Http\Request;
 
 class FavorisController extends Controller
 {
-    public function toggle(request $request, $doctorId)
+    public function add($doctorId)
     {
-        $validate = $request->validate([
-            'patient_id' => 'required|exists:patients,id',
-        ]);
-        $patientId = $validate['patient_id'];
-        $favori = Favoris::where('doctor_id', $doctorId)->where('patient_id', $patientId)->first();
+        $patientId = Auth::user()->patient->id;
+        $exists = Favoris::where('doctor_id', $doctorId)->where('patient_id', $patientId)->exists();
 
-        if ($favori) {
-            $favori->delete();
-        } else {
+        if (!$exists) {
             Favoris::create([
                 'doctor_id' => $doctorId,
                 'patient_id' => $patientId,
             ]);
-          }
+        }
 
-        return back()->with('success', 'Favori mis à jour.');
+        return back()->with('success', 'Docteur ajouté aux favoris');
     }
 
-   
+    public function remove($doctorId)
+    {
+        if (!Auth::check()) {
+            return back()->with('error', 'Non autorisé');
+        }
+
+        $patientId = Auth::user()->patient->id;
+        Favoris::where('doctor_id', $doctorId)->where('patient_id', $patientId)->delete();
+
+        return back()->with('success', 'Docteur retiré des favoris');
+    }
 }
+
+
+
+
+   
+   
+

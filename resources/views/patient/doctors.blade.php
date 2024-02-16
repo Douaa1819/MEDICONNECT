@@ -5,15 +5,25 @@
        @forelse ($specialite->doctors as $doctor)
             <div class="bg-gray-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
                 <!-- Icône favoris -->
-                <form action="{{ route('favoris.toggle', $doctor->id) }}" method="POST" class="absolute bottom-2 right-2">
+                @php $isFavori = $doctor->isFavori(Auth::user()->patient->id); @endphp
+                @if ($isFavori )
+                <form action="{{ route('favorites.remove', $doctor->id) }}" method="post">
                     @csrf
-                    @method('POST')
-                    <!-- Bouton icône favoris -->
-                    <input type="hidden" name="patient_id" value="{{Auth::user()->patient->id}}" >
-                    <button type="submit" class="text-red-500 hover:text-red-600">
-                        <i class="{{ $doctor->isFavori($doctor->id) ? 'fas' : 'far' }} fa-heart fa-lg"></i>
-                    </button>
+                    @method('DELETE')     
+                    <input type="hidden" value="{{ $doctor->id }}" name="doctorID">
+        
+                    <button type="submit"> <i class="fas fa-heart text-red-600 text-2xl"></i></button>
                 </form>
+                    @else               
+                        <form action="{{ route('favorites.add', $doctor->id)}}" method="post">
+                        @csrf
+                        @method('POST')
+                      
+                        <input type="hidden" value="{{ $doctor->id }}" name="doctorID">
+
+                         <button type="submit"><i class="far fa-heart text-2xl"></i></button>
+                        </form>
+                @endif
                 
                 <a href="{{ route('aptient.appointment',['doctorID' =>  $doctor->id ] )}}" class="block p-6">
                     <img src="{{ asset('images/doctor.jpg') }}" alt="Profile" class="w-auto h-auto object-cover">
@@ -38,38 +48,7 @@
         @endforelse 
     </div>
 </div>
-
-
-
-
-
-        
+ 
         <x-footer></x-footer>
-
-
-
-        <script>
-            document.querySelectorAll('.favori-toggle').forEach(button => {
-                button.addEventListener('click', function() {
-                    const doctorId = this.getAttribute('data-doctor-id');
-                    fetch(`/favorite/toggle/${doctorId}`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ doctorId: doctorId })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if(data.isFavorite) {
-                            this.innerHTML = '<i class="fas fa-heart fa-lg"></i>'; // Change l'icône en cœur plein
-                        } else {
-                            this.innerHTML = '<i class="far fa-heart fa-lg"></i>'; // Change l'icône en cœur vide
-                        }
-                    });
-                });
-            });
-        </script>
         
         
