@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Doctor;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -92,11 +94,10 @@ class ReservationsController extends Controller
 
     }
     
-    public function edit(string $id)
-    {
-        //
-    }
-
+   public function doctorProfile($doctorID){
+    $doctor= Doctor::findOrFail($doctorID);
+    return view('patient.doctorProfile',compact('doctor'));
+   }
     public function update(Request $request)
     
     

@@ -53,7 +53,7 @@ use App\Http\Controllers\ReservationsController;
         Route::get('/detet/Medicament/{id}', [MedicamentController::class, 'destroy'])->name('delet.Médicament');
         //Update reservation
         Route::get('/user', [ProfileController::class, 'showrecervation'])->name('user.reservation');
-
+        
         //Update photo Profile :
         Route::post('/user/profile/picture', [ProfileController::class, 'updateProfilePicture'])->name('user.profile.picture.update');
         //Apointment Patient
@@ -64,8 +64,11 @@ use App\Http\Controllers\ReservationsController;
         Route::get('/patient/Urgent', [ReservationsController::class,'urgent'])->name('urgent');
         Route::post('/patient/Urgent', [ReservationsController::class,'reservationUrgent'])->name('urgent.store');
         Route::post('/favorites/add/{doctorId}', [FavorisController::class, 'add'])->name('favorites.add');
-        Route::delete('/favorites/remove/{doctorId}', [FavorisController::class, 'remove'])->name('favorites.remove');        
-
+        Route::delete('/favorites/remove/{doctorId}', [FavorisController::class, 'remove'])->name('favorites.remove');  
+        
+        
+        //Doctor Profile
+        Route::get('/Doctor/Profile/{doctorID}',[ReservationsController::class,'doctorProfile'])->name('Doctor.profile');
         //logout
         Route::get('/logout', function () {
             request()->session()->invalidate();

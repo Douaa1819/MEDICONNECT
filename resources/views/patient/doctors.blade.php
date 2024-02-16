@@ -24,8 +24,7 @@
                          <button type="submit"><i class="far fa-heart text-2xl"></i></button>
                         </form>
                 @endif
-                
-                <a href="{{ route('aptient.appointment',['doctorID' =>  $doctor->id ] )}}" class="block p-6">
+                 <a href="{{ route('Doctor.profile',['doctorID' =>  $doctor->id ] )}}" class="block p-6">
                     <img src="{{ asset('images/doctor.jpg') }}" alt="Profile" class="w-auto h-auto object-cover">
                     <h2 class="  text-2xl text-center font-bold text-gray-900">{{ $doctor->user->name }}</h2>
                 </a>
@@ -38,7 +37,7 @@
                         <i class="fas fa-star text-yellow-500"></i>
                         <i class="fas fa-star text-gray-300"></i>
                     </div>
-                    <button class="mt-4 bg-green-400 text-black px-4 py-2 rounded">Réserver</button>
+                    
                 </div>
             </div>
         @empty
@@ -48,7 +47,8 @@
         @endforelse 
     </div>
 </div>
- 
+@php
+@endphp
         <x-footer></x-footer>
         
         

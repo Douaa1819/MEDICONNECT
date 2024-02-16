@@ -24,13 +24,8 @@ class FavorisController extends Controller
 
     public function remove($doctorId)
     {
-        if (!Auth::check()) {
-            return back()->with('error', 'Non autorisé');
-        }
-
         $patientId = Auth::user()->patient->id;
         Favoris::where('doctor_id', $doctorId)->where('patient_id', $patientId)->delete();
-
         return back()->with('success', 'Docteur retiré des favoris');
     }
 }
