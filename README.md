@@ -2,7 +2,7 @@
 ## Lien de Planification Jira :
 - **[Jira](https://douaa123.atlassian.net/jira/software/projects/MED/boards/2)**
 - ## Lien de Présenattion
-- **[Canva](https://www.canva.com/p/templates/EAFl-aIpMjM-white-and-light-blue-professional-modern-health-care-presentation/)**
+- **[Canva](https://www.canva.com/design/DAF77pYiPYQ/JKJC-v6q4ZALjuGSx9k_hg/edit?utm_content=DAF77pYiPYQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)**
 
 
 
