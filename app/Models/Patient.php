@@ -16,9 +16,9 @@ class Patient extends User
         return $this->belongsTo(User::class);
     }
 
-  
-    public function reservation(){
-        return $this->hasOne(reservation::class,'patient_id');
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class ,'patient_id');
     }
 
     public function review(){

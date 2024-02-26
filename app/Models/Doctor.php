@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Doctor extends User
 {
     protected $fillable = ['user_id', 'specialite_id'];
+    
     public static function allDoctors()
     {
         return self::where('role', 'doctor')->get();
@@ -37,11 +38,17 @@ class Doctor extends User
 
 
 
-
+public function notes()
+{
+    return $this->hasMany(Note::class);
+}
 
 public function reservations() {
     return $this->hasMany(Reservation::class);
 }
-
+public function favorisCount()
+{
+    return $this->hasMany(Favoris::class, 'doctor_id')->count();
+}
 }
 

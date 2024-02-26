@@ -9,9 +9,10 @@
                 @if(Auth::check() && Auth::user()->patient)
                 @php
                     $isFavori = $doctor->isFavori(Auth::user()->patient->id);
+                    $countFavoris = $doctor->favorisCount();
                 @endphp
                 @if ($isFavori)
-                <form action="{{ route('favorites.remove', $doctor->id) }}" method="post">
+                <form action="{{ route('favorites.remove', $doctor->id) }}" method="post" >
                     @csrf
                     @method('DELETE')     
                     <input type="hidden" value="{{ $doctor->id }}" name="doctorID">
@@ -28,6 +29,7 @@
                          <button type="submit"><i class="far fa-heart text-2xl"></i></button>
                         </form>
                         @endif
+                        <span>{{ $countFavoris }}</span>
                         @endif
                  <a href="{{ route('Doctor.profile',['doctorID' =>  $doctor->id ] )}}" class="block p-6">
                     <img src="{{ asset('images/doctor.jpg') }}" alt="Profile" class="w-auto h-auto object-cover">
@@ -35,16 +37,27 @@
                 </a>
                 <div class="p-4">
                     <!--  étoiles -->
-                    <div class="flex items-center">
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-gray-300"></i>
+                        @php
+                            $averageRating = round($doctor->notes->avg('Countnote'), 1);
+                            $fullStars = floor($averageRating);
+                            $halfStar = $averageRating - $fullStars >= 0.5 ? true : false;
+                            $emptyStars = 5 - ceil($averageRating);
+                        @endphp
+                        <div class="flex items-center">
+                            @for ($i = 0; $i < $fullStars; $i++)
+                                <i class="fas fa-star text-yellow-500"></i>
+                            @endfor
+                            @if ($halfStar)
+                                <i class="fas fa-star-half-alt text-yellow-500"></i>
+                            @endif
+                            @for ($i = 0; $i < $emptyStars; $i++)
+                                <i class="far fa-star text-yellow-500"></i>
+                            @endfor
+                            <span class="ml-2 text-gray-600">({{ $averageRating }} sur 5)</span>
+                        </div>
                     </div>
-                    
                 </div>
-            </div>
+
         @empty
             <div class="col-span-1 sm:col-span-2 lg:col-span-3">
                 <p class="text-gray-800 text-center">Aucun docteur trouvé pour cette spécialité.</p>

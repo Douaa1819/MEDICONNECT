@@ -16,4 +16,8 @@ class medicament extends Model
     {
         return $this->belongsTo(Specialite::class, 'specialite_id');
     }
+    public function consultation()
+    {
+        return $this->hasMany(Consultation::class,'consultationsID');
+    }
 }

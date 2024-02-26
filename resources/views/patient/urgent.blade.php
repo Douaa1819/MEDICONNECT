@@ -8,8 +8,6 @@
     <form action="{{route('urgent.store')}}" method="post" class="flex flex-col gap-6 rounded-lg shadow-xl mt-4 p-8 mb-10 ">
         @csrf
         @method('POST')
-  
-        <input type="hidden" value="{{$doctorID}}" name="doctor_id">
         <input type="hidden" value="{{ Auth::user()->patient->id }}" name="patient_id"> 
           @foreach ($appointments as $appointment)
       <div class="flex items-center w-full justify-center  "> 

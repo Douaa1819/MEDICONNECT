@@ -18,8 +18,7 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        $user = Auth::user(); // Récupère l'utilisateur authentifié
-
+        $user = Auth::user(); 
         if ($user->role == 'doctor') {
             return view('doctor.doashbord', compact('user'));
         } elseif ($user->role == 'patient') {
@@ -75,7 +74,8 @@ class ProfileController extends Controller
     $role = auth()->user()->role; 
 
     if ($role === 'patient') {
-        return view('patient.home');
+        $specialites = Specialite::all(); 
+        return view('patient.home', compact('specialites')); 
     } elseif ($role === 'doctor') {
         $result = DB::select("SHOW COLUMNS FROM reservations WHERE Field = 'booking_time'");
         preg_match("/^enum((.*))$/", $result[0]->Type, $matches);

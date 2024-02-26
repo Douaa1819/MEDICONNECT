@@ -8,7 +8,7 @@
         @method('POST')
   
         <input type="hidden" value="{{$doctorID}}" name="doctor_id">
-        <input type="hidden" value="{{ Auth::user()->id }}" name="patient_id"> 
+        <input type="hidden" value="{{ Auth::user()->patient->id }}" name="patient_id"> 
           @foreach ($appointments as $appointment)
       <div class="flex items-center w-full justify-center  "> 
                

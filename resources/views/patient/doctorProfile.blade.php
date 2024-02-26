@@ -2,20 +2,9 @@
 <div class="h-full bg-gray-200 p-8">
     <div class="bg-white rounded-lg shadow-xl pb-8">
         <div x-data="{ openSettings: false }" class="absolute right-12 mt-4 rounded">
-            <button @click="openSettings = !openSettings" class="border border-gray-400 p-2 rounded text-gray-300 hover:text-gray-300 bg-gray-100 bg-opacity-10 hover:bg-opacity-20" title="Settings">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
-                </svg>
-            </button>
             <div x-show="openSettings" @click.away="openSettings = false" class="bg-white absolute right-0 w-40 py-2 mt-1 border border-gray-200 shadow-2xl" style="display: none;">
                 <div class="py-2 border-b">
                     <p class="text-gray-400 text-xs px-6 uppercase mb-1">Settings</p>
-                    <button class="w-full flex items-center px-6 py-1.5 space-x-2 hover:bg-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
-                        </svg>
-                        <span class="text-sm text-gray-700">Share Profile</span>
-                    </button>
                     <button class="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
@@ -54,6 +43,26 @@
                 </span>
             </div>
             <p class="text-gray-700">{{ $doctor->user->email }}</p>
+            <div class="mb-3">
+              @php
+                  $averageRating = round($doctor->notes->avg('Countnote'), 1);
+                  $fullStars = floor($averageRating);
+                  $halfStar = $averageRating - $fullStars >= 0.5 ? true : false;
+                  $emptyStars = 5 - ceil($averageRating);
+              @endphp
+              <div class="flex items-center">
+                  @for ($i = 0; $i < $fullStars; $i++)
+                      <i class="fas fa-star text-yellow-500"></i>
+                  @endfor
+                  @if ($halfStar)
+                      <i class="fas fa-star-half-alt text-yellow-500"></i>
+                  @endif
+                  @for ($i = 0; $i < $emptyStars; $i++)
+                      <i class="far fa-star text-yellow-500"></i>
+                  @endfor
+                  <span class="ml-2 text-gray-600">({{ $averageRating }} sur 5)</span>
+              </div>
+          </div>
              <a href="{{ route('aptient.appointment',['doctorID' =>  $doctor->id ] )}}" class="block p-6"> 
             <button class="mt-4 bg-green-400 text-black px-4 py-2 rounded">Réserver</button>
              </a>
@@ -87,7 +96,7 @@
                           @csrf
                           @method('post')
                           <div>
-                            <label for="comment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What's your thought?</label>
+                            <label for="comment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
                             <textarea type="text" name="comment" id="comment" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" rows="4" required>Write your review here</textarea>
                           </div>
                           <input type="hidden" name="doctorID" value="{{ $doctor->id }}">
@@ -102,20 +111,55 @@
                             </select>
                           </div>
                           
-                          <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button>
+                          <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">publier</button>
+                          @if(session('success'))
+                    <script>
+                        setTimeout(function() {
+                            alert('{{ session('success') }}');
+                        }, 100);
+                    </script>
+                @endif
                         </form>
                       </div>
                     </div>
                   </div>
                 </div>
-            </div>
 
+            </div>
+            <div class="container mx-auto px-4 mt-5">
+              <h1 class="text-3xl font-bold text-gray-800 mb-4">Avis sur le Docteur: {{ $doctor->user->name }}</h1>
+      
+              
+              <!-- Liste des commentaires -->
+              <div class="space-y-4">
+                  <h2 class="text-xl font-semibold text-gray-700">Commentaires:</h2>
+                  @forelse ($doctor->notes as $note)
+                      <div class="p-4 bg-white rounded-lg shadow">
+                          <div class="flex justify-between items-center mb-1">
+                              <span class="text-sm text-gray-600">{{ $note->created_at->format('d/m/Y') }}</span>
+                          </div>
+                          <p class="text-gray-600">{{ $note->Comment }}</p>
+                          <div class="flex mt-2">
+                              @for ($i = 0; $i < $note->Countnote; $i++)
+                                  <i class="fas fa-star text-yellow-500"></i>
+                              @endfor
+                              @for ($i = $note->Countnote; $i < 5; $i++)
+                                  <i class="far fa-star text-yellow-500"></i>
+                              @endfor
+                          </div>
+                      </div>
+                  @empty
+                      <p>Aucun commentaire pour le moment.</p>
+                  @endforelse
+              </div>
+          </div>
             
         </div>
     </div>
 
     
-   
+    <x-footer></x-footer>
+    
      
 
-    <x-footer></x-footer>
+    
